@@ -1,0 +1,1 @@
+(getproperty trackviewnodes.Anim_Layer_Control_Manager.controller #animlayers).count=0
