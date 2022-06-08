@@ -12,13 +12,13 @@ rollout boneDivider "Bone等分工具" width:165 height:185
 (	
 	GroupBox grp_ops "层级关系设置:" pos:[5,5] width:155 height:80
 	
-	checkbox chk_hier "层级关系A" pos:[10,20] width:105 height:15 checked:true  enabled:true 
-	checkbox chk_par "层级关系B " pos:[10,35] width:105 height:15 checked:false
-	checkbox chk_retA "层级关系C" pos:[10,50] width:105 height:15 checked:true 
-	checkbox chk_retB "层级关系D" pos:[10,65] width:105 height:15 checked:true 
+	checkbox chk_hier "创建层次结构" pos:[10,20] width:105 height:15 checked:true  enabled:true 
+	checkbox chk_par "原父物体 " pos:[10,35] width:105 height:15 checked:false
+	checkbox chk_retA "保留父物体" pos:[10,50] width:105 height:15 checked:true 
+	checkbox chk_retB "保留子物体" pos:[10,65] width:105 height:15 checked:true 
 	
 	GroupBox grp_set "划分设置:" pos:[5,85] width:155 height:55
-	checkbox chk_rep "替换原Bone" pos:[10,100] width:145 height:15 checked:true
+	checkbox chk_rep "替换原骨骼" pos:[10,100] width:145 height:15 checked:true
 	label lbl_div "分段数:" pos:[20,120] width:50 height:15
 	spinner spn_div "" pos:[75,120] width:80 height:16 range:[2,999,3] type:#integer
 	button btn_div "执行" pos:[5,145] width:155 height:25

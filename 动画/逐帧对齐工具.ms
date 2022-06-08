@@ -5,7 +5,7 @@ rollout duiqigongju "对齐工具" width:162 height:110
 	radiobuttons duiqifanweizhen "" pos:[13,26] width:65 height:32 enabled:true labels:#("全部帧", "范围帧") default:1 columns:1
 	pickbutton btn17 "对齐" pos:[79,31] width:71 height:26
 	
-	label lbl1 "选择需要对齐的物体后，点击对齐按钮拾取被对齐物体,不想要撤销就好" pos:[6,61] width:155 height:45
+	label lbl1 "1、选择无动画的物体。      2、点击对齐按钮。            3、选择有动画的物体。" pos:[6,61] width:155 height:45
 	
 	
 	

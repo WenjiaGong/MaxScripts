@@ -603,19 +603,19 @@ function fnCreateChain splineNode ControlsArray nBones widthVar taperVar SquashB
 	spinner UIWidth "骨骼宽度: " pos:[69,50] width:123 height:16 range:[0,1e+008,5] type:#float
 	spinner UITaper "骨骼锥度: " pos:[69,71] width:123 height:16 range:[0,1e+008,0] type:#float
 	checkbox UISquash "挤压体积不变" pos:[18,92] width:90 height:15 checked:false
-	GroupBox grp3 "LookAt" pos:[9,117] width:192 height:57
-	radiobuttons UILookAtType "" pos:[21,134] width:107 height:32 labels:#("LookAt Constraint", "Quaternion Aim") columns:1
-	GroupBox grp2 "Chain Points Settings" pos:[9,177] width:192 height:198
-	checkbox UIRotAver "Roll Average" pos:[18,196] width:107 height:15 checked:true
-	radiobuttons UIRotAverToControls "Average to:" pos:[40,215] width:127 height:62 labels:#("First and Last Controls", "All Controls", "Spinner") columns:1
-	radiobuttons UIRotAverType "Average Type:" pos:[40,282] width:124 height:46 labels:#("Orientation Constraint", "Euler Angles") default:2 columns:1
-	checkbox UIManControllers "Manipulation Controllers" pos:[18,335] width:136 height:15 checked:true
-	checkbox UIIKSolver "Extra IK Solver constraint" pos:[18,355] width:143 height:15 
-	GroupBox grp4 "Spline Control Settings" pos:[10,380] width:192 height:77
-	radiobuttons UISplineControlType "" pos:[19,397] width:101 height:32 labels:#("Spline IK Control", "Skin") columns:1
-	checkbox UITangents "Tangents" pos:[19,436] width:136 height:15 checked:true
-	button UIOK "Ok" pos:[47,466] width:74 height:21
-	button UICancel "Cancel" pos:[127,466] width:74 height:21
+	GroupBox grp3 "注视" pos:[9,117] width:192 height:57
+	radiobuttons UILookAtType "" pos:[21,134] width:107 height:32 labels:#("注视约束", "四元数注视") columns:1
+	GroupBox grp2 "链点设置" pos:[9,177] width:192 height:198
+	checkbox UIRotAver "均匀翻转" pos:[18,196] width:107 height:15 checked:true
+	radiobuttons UIRotAverToControls "平均设置:" pos:[40,215] width:127 height:62 labels:#("第一个和最后一个控件", "所有控件", "Spinner") columns:1
+	radiobuttons UIRotAverType "平均类型:" pos:[40,282] width:124 height:46 labels:#("方向约束", "欧拉角") default:2 columns:1
+	checkbox UIManControllers "操纵控制器" pos:[18,335] width:136 height:15 checked:true
+	checkbox UIIKSolver "IK约束" pos:[18,355] width:143 height:15 
+	GroupBox grp4 "样条线控制设置" pos:[10,380] width:192 height:77
+	radiobuttons UISplineControlType "" pos:[19,397] width:101 height:32 labels:#("样条线IK控制", "皮肤") columns:1
+	checkbox UITangents "切线" pos:[19,436] width:136 height:15 checked:true
+	button UIOK "确定" pos:[47,466] width:74 height:21
+	button UICancel "取消" pos:[127,466] width:74 height:21
 	
 	--Finally the execution of the functions when the magic buttons are pressed
 
