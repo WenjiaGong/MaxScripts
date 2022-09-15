@@ -6,10 +6,10 @@ rollout test "一键创建挂点" width:140 height:60
 				
 		----------创建bone骨骼----------	
 		startPos=[0,0,0]                                         
-		endPos=[10,0,0]                                           
+		endPos=[5,0,0]                                           
 		b = boneSys.createBone startPos endPos [0,0,1]         
-		b.width = 10
-		b.height = 10
+		b.width = 5
+		b.height = 5
 		b.taper = 90
 		b.sideFins = off
 		b.frontFin = off
