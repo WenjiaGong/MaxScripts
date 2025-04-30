@@ -18,39 +18,43 @@ global SoxFbxToBiped		-- SoxFbxToBiped ·Ñ¾Æ¿ô¸íÀ» ±Û·Î¹ú º¯¼ö·Î ÀÎ½ÄÇÏ±â À§ÇØ ÃÊ
 
 try (destroydialog SoxFbxToBiped) catch()		-- È¤½Ã ¿­·ÁÀÖ´Â SoxFbxToBiped ÀÖÀ¸¸é °­Á¦ Á¾·á
 
-rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
+rollout SoxFbxToBiped "Sox Fbx to Biped v0.34" width:280
 (
-	button uiBtnScanRoot "Scan Root" across:4
-	button uiBtnLoad "Load"
-	button uiBtnSaveAs "SaveAs"
-	button uiBtnReset "Reset"
-	group "Options" (
-		radiobuttons uiRBtnLoadingType "Loading type" labels:#("Name", "Handle") default:1
-		checkbox uiCBoxAutoHide "Auto hide after Set" across:2
-		checkbox uiCBoxNonBipedMode "Non Biped Mode"
+	button uiBtnScanRoot "É¨Ãè¸ù¹Ç" width:60 across:5
+	button uiBtnLoad "¼ÓÔØ" width:50 offset:[10, 0]
+	button uiBtnSaveAs "±£´æ" width:50 offset:[12, 0]
+	button uiBtnReset "ÖØÖÃ" width:50 offset:[12, 0]
+	button uiBtnAbout "?" width:30 offset:[16, 0]
+	
+	group "Ñ¡Ïî" (
+		radiobuttons uiRBtnLoadingType "×°ÔØÀàÐÍ" labels:#("Ãû³Æ", "¾ä±ú") default:2
+		checkbox uiCBoxAutoHide "ÉèÖÃºó×Ô¶¯Òþ²Ø" across:2
+		checkbox uiCBoxNonBipedMode "·ÇË«×ãÄ£Ê½"
 -- 		checkbox uiCBoxExistingKey "Use existing keys"
 -- 		spinner uiSpnThickHor "Thick. Hor." across:2
 -- 		spinner uiSpnThickVer "Thick. Ver."
 	)
 	
-	button uiBtnSetRootFbx "Set Fbx Root" across:2
-	button uiBtnSetRootBip "Set Biped Root"
+	button uiBtnSetRootFbx "Ñ¡ÔñFbx¸ù¹Ç" across:2
+	button uiBtnSetRootBip "Ñ¡ÔñBiped¸ù¹Ç"
 	
 	label uiLabelRootFbx across:2
 	label uiLabelRootBip
 	
-	button uiBtnSetFbx "Set FBX" across:4
-	button uiBtnClearFbx "Clear FBX"
-	button uiBtnSetBip "Set Bip"
-	button uiBtnClearBip "Clear Bip"
+	button uiBtnSetFbx "Ñ¡ÔñFBX" offset:[-4, 0] across:4
+	button uiBtnClearFbx "ÇåÀíFBX" offset:[-8, 0]
+	button uiBtnSetBip "Ñ¡ÔñBip" offset:[10, 0]
+	button uiBtnClearBip "ÇåÀíBip" offset:[6, 0]
 	
-	listbox uiLBoxFbxBip height:12
+	listbox uiLBoxFbxBip height:8
 	
-	button uiBtnListAdd "   +   " across:2
-	button uiBtnListDel "    -   "
--- 	button uiBtnListUp "   ^   "
--- 	button uiBtnListDown "   v   "
+	button uiBtnListAdd "   +   " tooltip:"Ìí¼ÓÌõÄ¿" offset:[-6,0] across:4
+	button uiBtnListDel "    -   " tooltip:"ÒÆ³ýÌõÄ¿" offset:[-16,0]
+    button uiBtnListHide "Òþ²ØÌõÄ¿" offset:[-8,0]
+    button uiBtnListUnHide "ÏÔÊ¾ÌõÄ¿"
 	
+	/*
+	-- Select ±×·ìÀº Àß ¾È¾²´ÂµíÇÏ¿© ºÀÀÎ
 	group "Select" (
 	button uiBtnSelectFbxRoot "FBX Root" across:2
 	button uiBtnSelectBipRoot "Bip Root"
@@ -59,37 +63,48 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	button uiBtnSelectBip "1 Bip"
 	button uiBtnSelectBipAll "All Bip"
 	)
+	*/
 	
-	group "Figure" (
- 		button uiBtnFigureSync "Figure Sync"		
+	group "Æ¥Åä" (
+ 		button uiBtnFigureSync "Æ¥Åä¹Ç÷À"  width:100 across:2
+		spinner uiSpnFootHeight "½Å¸ß¶È" range:[0, 999999, 10] tooltip:"¹ÙÀÌÆÐµå ¹ßÀÇ ³ôÀÌ. ¹ÙÀÌÆÐµå ¹ßÀÇ Æ¯¼º»ó ¹ß¸ñ¿¡¼­ ¹ß¹Ù´Ú±îÁö ³ôÀÌ °ªÀ» ÁöÁ¤ÇØ¾ßÇÑ´Ù."
 	)
 	
-	group "Keyframe" (
-		radiobuttons uiRBtnKeyOption labels:#("Animation Range", "1 Frame") default:1
-		button uiBtnSyncAll "All Listed" across:2
-		button uiBtnSyncSel "1 Selected"
+	group "¹Ø¼üÖ¡" (
+		radiobuttons uiRBtnKeyOption labels:#("¶¯»­·¶Î§", "µ±Ç°Ö¡") default:1 across:2
+		checkbox uiChkDeleteExistingKeys "É¾³ýµ±Ç°Ö¡" checked:true tooltip:"¸ðµç ¹ÙÀÌÆÐµå Å°¸¦ »èÁ¦ ÈÄ ¹ÙÀÌÆÐµå ¾Ö´Ï¸ÞÀÌ¼Ç Å°¸¦ »ý¼º"
+		button uiBtnKeyAll "KÈ«²¿¹Ø¼üÖ¡" width:100 across:2
+		button uiBtnKeySelectedOne "KÑ¡ÖÐ¹Ø¼üÖ¡" width:100
 	)
 	
 	progressBar uiPBar height:8 color:red
 	
-	label uiLabelBipInfo "Biped : " align:#left
-	label uiLabelStatus "Status : " align:#left
+	label uiLabelBipInfo "Biped : " align:#left across:2
+	label uiLabelStatus "×´Ì¬: " align:#left
 	
-	group "Replace name in selection" (
+	button uiBtnSetAnimRangeBySelectedObj "Ñ¡¶¨¶ÔÏóµÄ¶¯»­·¶Î§" tooltip:"¼±ÅÃÇÑ ¿ÀºêÁ§Æ®¸¦ ±âÁØÀ¸·Î¾Ö´Ï¸ÞÀÌ¼Ç ·¹ÀÎÁö¸¦ º¯°æ"
+	
+	group "Ìæ»»Ãû³Æ" (
 		edittext uiETxtReplaceFrom across:3
 		edittext uiETxtReplaceTo
-		button uiBtnDoReplace "Replace!"
+		button uiBtnDoReplace "Ìæ»»"
 	)
 
-	group "Fixed Distance Helper (Rigging Utility)" (
-		button uiBtnFDHelper "Fixed Distance Helper" align:#left tooltip:"Create Fixed Distance Helper. This button should be used with two bones selected. You can select the relevant helpers and press the button." across:2
-		spinner uiSpinFDHelperSize toolTip:"Fixed Distance Helper Size" range:[0,10000,20] offset:[0, 0] align:#left
-		radiobuttons uiRBtnFDHelperForward labels:#("X", "Y", "Z") default:1 tooltip:"Forward Direction of Fixed Distance Helper" columns:3 offset:[0, 0] across:2
-		checkbox uiCBoxFDHelperForwardFlip "Flip" tooltip:"Flip Forward Direction"
+    group "×Ô¶¯¸½¼ÓÃû³Æ" (
+		edittext uiETxtAppend "¸½¼ÓÃû³Æ" width:180 offset:[0,0] across:2
+        spinner uiSpnPointSize range:[0.1,9999,10]
+		button uiBtnDoAppend "¸½¼Ó!" offset:[0,0] tooltip:"Renames the second object based on the name of the tempFirst selected object." across:3
+        button uiBtnDoAppendAlign "Apnnd Align!" offset:[0,0] tooltip:"It automatically sorts them, links them as children, and renames them. Two objects must be selected for it to work."
+        button uiBtnDoAppendAlignedPoint "Apnend Point!" offset:[0,0] tooltip:"Creates point helpers that are auto-aligned and childed to the selected objects."
 	)
-	--button uiBtnDeletePosKeys "Delete Position Keys" align:#left tooltip:"Delete the Position keys after the current frame."
 	
-	button uiBtnAbout "About..."
+	group "Ìí¼Ó¿ØÖÆÆ÷" (
+		button uiBtnAddPositionConstraint "Î»ÖÃ" across:3
+		button uiBtnAddLookatConstraint "×¢ÊÓ"
+        button uiBtnAddOrientationConstraint "·½Ïò"
+	)
+
+	--button uiBtnDeletePosKeys "Delete Position Keys" align:#left tooltip:"Delete the Position keys after the current frame."
 -- 	button uiBtnTest "Test"
 	
 	-- Fbx¿Í Biped ÇÑ ½ÖÀ» Á¤ÀÇÇÏ´Â ±¸Á¶Ã¼. ¹ÙÀÌÆÐµå´Â Xtra ¶ó´ø°¡ Prop ÀÌ¶ó´ø°¡ ÇÏ´Â ÀÌ·± Àú·± Ãß°¡ Á¤º¸°¡ ÀÖÀ» ¼ö ÀÖÀ½
@@ -108,13 +123,13 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- trParent ·ÎºÎÅÍ trChild ÀÇ ·ÎÄÃ À§Ä¡¿Í ·ÎÅ×ÀÌ¼Ç°ú ½ºÄÉÀÏ °ªÀ» ¸¦ ¸®ÅÏÇÑ´Ù.
-	function fnGetLocalTransform trParent trChild = -- ÀÔ·Â °ªÀº matrix3, ¸®ÅÏ °ªÀº matrix3,
+	function GetLocalTransform trParent trChild = -- ÀÔ·Â °ªÀº matrix3, ¸®ÅÏ °ªÀº matrix3,
 	(
 		trChild*(inverse trParent)
 	)
 	
 	-- ¸®½ºÆ®¿¡ ¹ÙÀÌÆÐµå°¡ ¾Æ´Ñ ¿ÀºêÁ§Æ®°¡ ÀÖ´ÂÁö °Ë»ç. ¹ÙÀÌÆÐµå°¡ ¾Æ´Ñ ¿ÀºêÁ§Æ®°¡ ÀÖÀ¸¸é true ¸®ÅÏ
-	function fnNonBipedCheck = (
+	function NonBipedCheck = (
 		returnBool = false
 		if ( classof rootObjBip ) != Biped_Object and rootObjBip != undefined do ( returnBool = true )
 
@@ -127,7 +142,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- pairs º¯¼ö ¾È¿¡ ¸ÅÄªÀÌ ´ú µÈ °æ¿ì°¡ ÀÖ´ÂÁö °Ë»ç ¹®Á¦ ¾øÀ¸¸é true, ¹®Á¦ ÀÖÀ¸¸é false ¸®ÅÏ
-	function fnCheckMatch = (
+	function CheckMatch = (
 		if pairs.count == 0 do return true
 		for o in pairs do (
 			if ( o.fbxObj == undefined and o.bipObj != undefined ) do return false
@@ -137,7 +152,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- ¹ÙÀÌÆÐµå ¿ÀºêÁ§Æ®ÀÇ XÃà ½ºÄÉÀÏ°ª ¸¸Å­ÀÇ ¿ùµå Æ÷Áö¼ÇÀ» ¾Ë¾Æ³¿ (Xtra µîÀÇ ¿ÀºêÁ§Æ®¿¡¼­ ÀÚ½ÄÀÌ ¿©·µ ÀÖÀ» ¶§ ½ÇÁ¦ ½ºÄÉÀÏ¿¡ »ç¿ëÇÒ ÀÚ½ÄÀ» ¾Ë¾Æ³»±â À§ÇÔ)
-	function fnGetLocalScaleXWorldPos bipObj = (
+	function GetLocalScaleXWorldPos bipObj = (
 		tScale = biped.getTransform bipObj #scale
 		tMatrix = matrix3 1
 		tMatrix.pos = [tScale.x, 0, 0]
@@ -146,12 +161,12 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- ¹ÙÀÌÆÐµå ¿ÀºêÁ§Æ®ÀÇ ÀÚ½ÄÀÌ ¿©·µ ÀÖÀ» ¶§ XÃà ½ºÄÉÀÏ À§Ä¡¸¦ ±âÁØÀ¸·Î ÇÏ³ªÀÇ ÀÚ½ÄÀ» ¸®ÅÏÇÑ´Ù. ÀÚ½ÄÀÌ ¾ø°Å³ª ¹®Á¦°¡ ÀÖÀ¸¸é undefined ¸®ÅÏ
-	function fnGetChildByScalePos bipObj = (
+	function GetChildByScalePos bipObj = (
 		if ( (classof bipObj) != Biped_Object ) do return undefined
 		if ( bipObj.children.count == 1 ) do return bipObj.children[1]
 		if ( bipObj.children.count == 0 ) do return undefined
 		
-		tDestPos = fnGetLocalScaleXWorldPos bipObj		-- ÀÌ À§Ä¡¿¡ °¡±î¿î ÀÚ½ÄÀÌ ½ºÄÉÀÏÀÇ ±âÁØÀÌ µÇ´Â ÀÚ½Ä
+		tDestPos = GetLocalScaleXWorldPos bipObj		-- ÀÌ À§Ä¡¿¡ °¡±î¿î ÀÚ½ÄÀÌ ½ºÄÉÀÏÀÇ ±âÁØÀÌ µÇ´Â ÀÚ½Ä
 		
 		childDistArr = #()
 		tIndex = 0
@@ -164,7 +179,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- ¸®ÅÏ ½ºÆ®·°ÃÄÀÇ ¸â¹ö : limbName, linkIndex
-	function fnGetBipedType obj = (
+	function GetBipedType obj = (
 		if ( obj == undefined ) do return undefined
 		if ( (classof obj) != Biped_Object ) do return (bipType limbName:#nonBiped linkIndex:0)
 		
@@ -214,12 +229,15 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 			)
 		)
 		
-		-- ¸Æ½º ½ºÅ©¸³Æ®¿¡¼­ Xtra º»À» ÀüÇô Áö¿øÇÏÁö ¾Ê¾Æ¼­ ¾îÂ¿ ¼ö ¾øÀÌ ¹ÙÀÌÆÐµå Å¬·¡½ºÀÎµ¥ Á¤Ã¼¸¦ ¾Ë¾Æ³»Áö ¸øÇÑ°Ç ¸ðµÎ Xtra·Î Á¤ÀÇ
+		-- ¹ÙÀÌÆÐµå Å¬·¡½ºÀÎµ¥ Á¤Ã¼¸¦ ¾Ë¾Æ³»Áö ¸øÇÑ°Ç ¸ðµÎ Xtra·Î Á¤ÀÇ
+		-- https://forums.cgsociety.org/t/biped-xtra-maxscript-commands/1570351/5 ¼û°ÜÁø ¹ÙÀÌÆÐµå Xtra ÇÔ¼öµéÀ» Á» »ìÆìºÁ¾ßÇÒµí.
+        -- biped.getXtraName $ ÀÌ°É ÇÏ¸é ¿¢½ºÆ®¶ó ·çÆ®´Â ÀÌ¸§À» ¸®ÅÏÇÏ°í ¿¢½ºÆ®¶ó ·çÆ®°¡ ¾Æ´Ï¸é false ¸®ÅÏ.
+        -- ±×·¯³ª ¹®Á¦´Â ¿¢½ºÆ®¶ó ¸µÅ© 1 ÀÌ»óºÎÅÍ´Â ¿¡·¯ ¹ß»ýÇÔ. ¿¡·¯ ¹ß»ýÇÏ´Â°É ÀÌ¿ëÇØ¼­ try·Î 0°ú 1 ÀÌ»ó ÀÎµ¦½º¸¦ Ã£´Â ¹æ¹ýµµ °¡´ÉÇÒ µí. ¾Æ¹«Æ° º¸·ù
 		return (bipType limbName:#xtra linkIndex:0)
 	)
 		
-	function fnSwapArray arr id1 id2 = 	-- arr ¹è¿­¿¡¼­ id1°ú id2 ÀÇ ³»¿ëÀ» ¼­·Î µÚ¹Ù²Û´Ù. ¸®ÅÏµÈ ¹è¿­Àº ¿ø·¡ ¹è¿­À» º¯°æ½ÃÅ°Áö ¾Ê´Â´Ù.
-	(
+	-- arr ¹è¿­¿¡¼­ id1°ú id2 ÀÇ ³»¿ëÀ» ¼­·Î µÚ¹Ù²Û´Ù. ¸®ÅÏµÈ ¹è¿­Àº ¿ø·¡ ¹è¿­À» º¯°æ½ÃÅ°Áö ¾Ê´Â´Ù.
+	function SwapArray arr id1 id2 = (
 		if arr.count < id1 or arr.count < id2 do return arr -- Àß¸øµÈ ¾ÆÀÌµð°¡ ÀÔ·ÂµÇ¸é ±×³É ¿ø·¡ ¹è¿­À» ¸®ÅÏ
 		if id1 == id2 do return arr -- °°Àº ¹øÈ£ÀÇ ¾ÆÀÌµð°¡ ÀÔ·ÂµÇ¾îµµ ±×³É ¿ø·¡ ¹è¿­À» ¸®ÅÏÇÑ´Ù.
 	
@@ -240,7 +258,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		return tempArr
 	)
 		
-	function fnSetStatus = (
+	function SetStatus = (
 		if ( pairs.count == 0 ) do return ()
 		countFbx = 0
 		countBip = 0
@@ -258,21 +276,21 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		uiLabelStatus.text = tStr as string
 	)
 	
-	function fnSetBipInfo = (
+	function SetBipInfo = (
 		if ( pairs.count == 0 ) do return ()
 		if ( uiLBoxFbxBip.selection == 0 ) do return ()
 		
-		tBipType = fnGetBipedType pairs[uiLBoxFbxBip.selection].bipObj
+		local bipType = GetBipedType pairs[uiLBoxFbxBip.selection].bipObj
 		
-		if ( tBipType == undefined ) do ( uiLabelBipInfo.text  = "Biped : " ;return () )
+		if ( bipType == undefined ) do ( uiLabelBipInfo.text  = "Biped : " ;return () )
 		
 		tStr = stringstream ""
-		format "Biped : %, Link = %" tBipType.limbName tBipType.linkIndex to:tStr
+		format "Biped : %, Link = %" bipType.limbName bipType.linkIndex to:tStr
 		uiLabelBipInfo.text = tStr as string
 	)
 	
-		-- children À» ¹è¿­¿¡ append ÇØÁØ´Ù. ÀÔ·ÂµÈ arr ÀÚÃ¼°¡ º¯°æµÇ¹Ç·Î ¸®ÅÏ ¾øÀ½
-	function fnAppendChildren arr children = (
+	-- children À» ¹è¿­¿¡ append ÇØÁØ´Ù. ÀÔ·ÂµÈ arr ÀÚÃ¼°¡ º¯°æµÇ¹Ç·Î ¸®ÅÏ ¾øÀ½
+	function AppendChildren arr children = (
 		if ( children.count ) == 0 do return ()
 		for o in children do (
 			append arr o
@@ -280,7 +298,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- obj ÀÇ ¸ðµç ÀÚ½ÄµéÀ» ¹è¿­·Î ¸®ÅÏ. ¹è¿­ ¼ø¼­´Â °èÃþ±¸Á¶ ¼ø¼­´ë·Î
-	function fnGetAllChildren obj = (
+	function GetAllChildren obj = (
 		if ( obj == undefined ) do return undefined
 		
 		local tAllChildren = #()
@@ -288,20 +306,19 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 			for o in obj.children do (
 				append tAllChildren o
 				if ( o.children.count != 0 ) do (
-					tAllChildren = tAllChildren +  (fnGetAllChildren o)		-- recursive
+					tAllChildren = tAllChildren +  (GetAllChildren o)		-- recursive
 				)
 			)
 		)
-		
 		return tAllChildren
 	)
 	
 	-- pairs ¹è¿­À» ´ë»óÀ¸·Î °èÃþ±¸Á¶ ¼ø¼­´ë·Î ¼ÒÆÃ ÇÑ´Ù. pairs ¹è¿­Àº ¸ðµÎ rootObjBip ÀÇ ÀÚ½ÄÀÌ¶ó´Â ÀüÁ¦
-	function fnSortByHierarchy = (
+	function SortByHierarchy = (
 		if ( pairs.count == 0 ) do return ()
 		
 		-- ÀÏ´Ü rootObjBip ÀÇ ¸ðµç ÀÚ½ÄµéÀ» ¾ò¾î¿Â´Ù. °èÃþ±¸Á¶ ¼ø¼­´ë·Î ¾ò¾îÁü. ÀÌÈÄ pairs ¿¡ »ç¿ëµÈ °Íµé¸¸ ³²±â°í ³¯·Á¾ßÇÔ
-		tAllChildren = fnGetAllChildren rootObjBip
+		tAllChildren = GetAllChildren rootObjBip
 		
 		-- pairs¿¡ »ç¿ëµÈ ¹ÙÀÌÆÐµå ¿ÀºêÁ§Æ® ¹è¿­À» ÀÓ½Ã·Î ¸¸µç´Ù. °èÃþ±¸Á¶ ¼ø¼­´ë·Î°¡ ¾Æ´Ï´Ù.
 		tBips = #()
@@ -321,8 +338,8 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		retArr = #()
 		tProps = #()		-- ÇÁ¶øµéÀ» Æ¯º°Ã³¸®ÇÏ±â À§ÇÑ ÀÓ½Ã ¹è¿­
 		for i = 1 to tAllChildren.count do (
-			tBipType = ( fnGetBipedType tAllChildren[i] ).limbName
-			if ( tBipType != #prop1 and tBipType != #prop2 and tBipType != #prop3 ) then (
+			local bipType = ( GetBipedType tAllChildren[i] ).limbName
+			if ( bipType != #prop1 and bipType != #prop2 and bipType != #prop3 ) then (
 				-- ÇÁ¶øÀÌ ¾Æ´Ñ °æ¿ì
 				append retArr pairs[(finditem tBips tAllChildren[i])]
 			)
@@ -342,11 +359,11 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		pairs = deepcopy retArr
 	)
 	
-	function fnSetList = (
+	function SetList = (
 		-- 0.29¹öÀü±îÁö´Â ¸®½ºÆ® °»½Å½Ã¸¶´Ù ¸®½ºÆ®¸¦ °èÃþ±¸Á¶ ¼ø¼­´ë·Î ¼ÒÆÃÀ» Çß¾úÀ¸³ª
 		-- ¸Æ½º ÃÖ½Å¹öÀüºÎÅÍ ¸Å¿ì ´À¸®°Ô ÀÛµ¿ÇÏ¿© ¸®½ºÆ® °»½Å¿¡¼­´Â Á¦¿ÜÇÔ
 		
-		tItems = #()
+		local items = #()
 		for o = 1 to pairs.count do (
 			tString = ""
 			if ( pairs[o].fbxObj != undefined ) then (
@@ -362,9 +379,9 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 			else (
 				tString += "( ... )"
 			)
-			append tItems tString
+			append items tString
 		)
-		uiLBoxFbxBip.items = tItems
+		uiLBoxFbxBip.items = items
 		
 		--if ( uiLBoxFbxBip.items.count > 1 and uiLBoxFbxBip.selection == 1 ) do uiLBoxFbxBip.selection = 2
 		if ( uiLBoxFbxBip.items.count > 0 and uiLBoxFbxBip.selection == 0 ) do uiLBoxFbxBip.selection = uiLBoxFbxBip.items.count
@@ -373,36 +390,39 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		uiLBoxFbxBip.selection = amin uiLBoxFbxBip.items.count (tSel + 5)
 		uiLBoxFbxBip.selection = tSel
 		
-		fnSetStatus ()
-		fnSetBipInfo ()
+		SetStatus ()
+		SetBipInfo ()
 		if ( rootObjFbx != undefined ) then ( uiLabelRootFbx.text = rootObjFbx.name ) else ( uiLabelRootFbx.text = "" )
 		if ( rootObjBip != undefined ) then ( uiLabelRootBip.text = rootObjBip.name ) else ( uiLabelRootBip.text = "" )
 	)
 	
-	-- pairs ¹è¿­ ¼ÓÀÇ ±¸Á¶Ã¼¿¡ ÀÌ¹Ì ÀÖ´Â ¿ÀºêÁ§Æ®ÀÎÁö¸¦ °Ë»çÇÏ¿© true ¿Í false ¸¦ ¹ÝÈ¯ÇÔ. Á¸ÀçÇÏ¸é ¹øÈ£ ¸®ÅÏ , ¾øÀ¸¸é 0 ¸®ÅÏ
-	function fnFindInPairsFbx obj = (
-		tPos = 0
+	-- pairs ¹è¿­ÀÇ FBX¿¡¼­ obj ÀÇ À§Ä¡ ¹øÈ£¸¦ ¸®ÅÏ
+	function FindInPairsFbx obj = (
+		local pos = 0
 		for o  = 1 to pairs.count do (
-			try ( if ( pairs[o].fbxObj == obj ) do tPos = o ) catch ()
+			try ( if ( pairs[o].fbxObj == obj ) do pos = o ) catch ()
 		)
-		return tPos
+		return pos
 	)
 	
-	-- pairs ¹è¿­ÀÇ ¹ÙÀÌÆÐµåÂÊ¿¡¼­ obj ÀÇ À§Ä¡ ¹øÈ£¸¦ ¸®ÅÏ
-	function fnFindInPairsBip obj = (
-		tPos = 0
+	-- pairs ¹è¿­ÀÇ ¹ÙÀÌÆÐµå¿¡¼­ obj ÀÇ À§Ä¡ ¹øÈ£¸¦ ¸®ÅÏ
+	function FindInPairsBip obj = (
+		local pos = 0
 		for o  = 1 to pairs.count do (
-			try ( if ( pairs[o].bipObj == obj ) do tPos = o ) catch ()
+			try ( if ( pairs[o].bipObj == obj ) do pos = o ) catch ()
 		)
-		return tPos
+		return pos
 	)
 	
-	function fnSetFileStream = -- pairs ¹è¿­ ±¸Á¶Ã¼ º¯¼öµéÀ» ¸ðµÎ ÃëÇÕÇØ¼­ Á¤ÇØÁø Æ÷¸ËÀ¸·Î Á¤·ÄÇÑ µÚ StringStream º¯¼ö ÇÏ³ª·Î ¸®ÅÏ
+	function SetFileStream = -- pairs ¹è¿­ ±¸Á¶Ã¼ º¯¼öµéÀ» ¸ðµÎ ÃëÇÕÇØ¼­ Á¤ÇØÁø Æ÷¸ËÀ¸·Î Á¤·ÄÇÑ µÚ StringStream º¯¼ö ÇÏ³ª·Î ¸®ÅÏ
 	(
 		if pairs.count == 0 do return undefined
 			
 		tempStr = stringStream ""
 		ifStr = ""
+
+		-- uiSpnFootHeight ÀÇ Foot Height ¸ÕÀú Ã³¸®
+		format "FootHeight = %\n" (uiSpnFootHeight.value as string) to:tempStr
 		
 		for k = 1 to pairs.count do
 		(
@@ -421,7 +441,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		return tempStr
 	)
 	
-	function fnCheckFileExt str = -- ½ºÆ®¸µÀÇ È®ÀåÀÚ¸¦ °Ë»ç
+	function CheckFileExt str = -- ½ºÆ®¸µÀÇ È®ÀåÀÚ¸¦ °Ë»ç
 	(
 		keyword = "sftb"
 		if str.count <= (keyword.count + 1) do return false
@@ -436,7 +456,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- obj°¡ parent ÀÇ ÇÏÀ§ ÀÚ½Ä¿¡ ¼Ò¼ÓµÇ¾îÀÖ´ÂÁö °Ë»ç
-	function fnIfChild parent obj = (
+	function IfChild parent obj = (
 		
 		found = false
 		checkObj = obj
@@ -448,7 +468,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- ¾À ³»¿¡ °°Àº ÀÌ¸§À» °¡Áø ¿ÀºêÁ§Æ®°¡ ¿©·µ ÀÖÀ» ¶§ ¹è¿­·Î ¸ðµÎ ¸®ÅÏ
-	function fnGetObjsByName str = (
+	function GetObjsByName str = (
 		objs = #()
 		for o in objects do (
 			if ( o.name == str ) do ( append objs o )
@@ -457,7 +477,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 	
 	-- ÀüÃ¼ ¾ÀÀ» Á¶»çÇØ¼­ ±âÁ¸¿¡ FbxRoot ÁöÁ¤µÈ À¯Àú ÇÁ·ÎÆÛÆ¼¸¦ Á¦°ÅÇÏ°í obj ¿¡ ·çÆ®¶ó´Â Ç¥½Ã¸¦ ÇÑ´Ù.
-	function fnSetUserPropFbxRoot obj = (
+	function SetUserPropFbxRoot obj = (
 		if ( objects.count == 0 ) do return ()
 		if ( obj == undefined ) do return ()
 		
@@ -468,7 +488,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		setUserProp obj "SoxFbxToBiped_FbxRoot" true
 	)
 	
-	function fnSetUserPropBipRoot obj = (
+	function SetUserPropBipRoot obj = (
 		if ( objects.count == 0 ) do return ()
 		if ( obj == undefined ) do return ()
 		
@@ -479,25 +499,25 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		setUserProp obj "SoxFbxToBiped_BipRoot" true
 	)
 
-	function fnGetParentObj obj = (
+	function GetParentObj obj = (
 		return (maxOps.getNodeByHandle (getUserProp obj "FBXtoBiped_FixedDistHelperParent"))
 	)
 
-	function fnGetTargetObj obj = (
+	function GetTargetObj obj = (
 		maxOps.getNodeByHandle (getUserProp obj "FBXtoBiped_FixedDistHelperTarget")
 	)
 
-	function fnGetHelperType obj = (
+	function GetHelperType obj = (
 		return (getUserProp obj "FBXtoBiped_FixedDistHelperType")
 	)
 
-	function fnGetLookAtHelperByPointer obj = (
+	function GetLookAtHelperByPointer obj = (
 		local tUserProp = getUserProp obj "FBXtoBiped_FixedDistPointerLookAt"
 		if (tUserProp == undefined) do return undefined
 		return (maxOps.getNodeByHandle tUserProp)	
 	)
 
-	function fnGetOrientationHelperByPointer obj = (
+	function GetOrientationHelperByPointer obj = (
 		local tUserProp = getUserProp obj "FBXtoBiped_FixedDistPointerOrientation"
 		if (tUserProp == undefined) do return undefined
 		return (maxOps.getNodeByHandle tUserProp)	
@@ -508,11 +528,11 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	-- ±×·¡¼­ ´Ü¼øÇÏ°Ô, ÀÚ½ÄÁß¿¡ ÇïÆÛ°¡ ÀÖ´ÂÁö, ±×¸®°í µÎ ¹øÂ° ¼±ÅÃ º»°ú ÀÏÄ¡ÇÏ´ÂÁö¸¦ Á¶»çÇÑ´Ù.
 	-- ÀÔ·Â°ª : selA´Â Ã¹ ¹øÂ° ¼±ÅÃ º», selB´Â µÎ ¹øÂ° ¼±ÅÃ º»
 	-- Ãâ·Â°ª : ¸ÅÄª µÇ¸é ÇïÆÛ¸¦ ¸®ÅÏÇÏ´ø°¡, ¸ÅÄªÀÌ ¾ÈµÇ¸é undefined
-	-- ÀÌ ¹æ½ÄÀº Orientation ÇïÆÛ¸¦ Ã£´Âµ¥ »ç¿ëÇÒ ¼ö ¾ø´Ù. Orientation ÇïÆÛ´Â selAÀÇ ÀÚ½Ä¿¡ ¾øÀ¸¹Ç·Î. ´ë½Å¿¡ fnFindOrientationHelperByTarget ÇÔ¼ö¸¦ »ç¿ëÇØ¾ßÇÔ
-	function fnGetLookAtHelper selA selB = (
+	-- ÀÌ ¹æ½ÄÀº Orientation ÇïÆÛ¸¦ Ã£´Âµ¥ »ç¿ëÇÒ ¼ö ¾ø´Ù. Orientation ÇïÆÛ´Â selAÀÇ ÀÚ½Ä¿¡ ¾øÀ¸¹Ç·Î. ´ë½Å¿¡ FindOrientationHelperByTarget ÇÔ¼ö¸¦ »ç¿ëÇØ¾ßÇÔ
+	function GetLookAtHelper selA selB = (
 		for obj in selA.children do (
-			if (fnGetHelperType obj == "LookAt") do (
-				tTarget = fnGetTargetObj obj
+			if (GetHelperType obj == "LookAt") do (
+				tTarget = GetTargetObj obj
 				if (tTarget == selB) do ( return obj)
 			)
 		)
@@ -521,36 +541,19 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	)
 
 	-- ¾À ÀüÃ¼¿¡¼­ obj¸¦ Å¸°ÙÀ¸·Î ÇÏ´Â Orientation ÇïÆÛ¸¦ Ã£´Â´Ù. ¾øÀ¸¸é undefined
-	function fnFindOrientationHelperByTarget obj = (
+	function FindOrientationHelperByTarget obj = (
 		for o in helpers do (
-			if (fnGetHelperType o == "Orientation") do (
-				local target = fnGetTargetObj o
+			if (GetHelperType o == "Orientation") do (
+				local target = GetTargetObj o
 				if (target == obj) do (return o)
 			)
 		)
 		return undefined
 	)
-
-	function fnSetFixedDistHelperButton = (
-		if (selection.count == 2) do (
-			uiBtnFDHelper.enabled = true
-			return()
-		)
-
-		if (selection.count == 1) do (
-			if ((fnGetHelperType selection[1]) == "LookAt" or (fnGetHelperType selection[1]) == "Orientation") do (
-				uiBtnFDHelper.enabled = true
-				return()
-			)
-		)
-		uiBtnFDHelper.enabled = false
-	)
 	
 	-- ÄÝ¹é¿¡¼­ È£ÃâµÇ´Â ÇÔ¼ö. ¾À¿¡¼­ ¼±ÅÃÀÌ º¯È­µÉ ¶§¸¶´Ù ÅøÀÇ ¸®½ºÆ®¸¦ µ¿±âÈ­ ÇØÁØ´Ù.
 	-- Fixed Distance Helper ¹öÆ°ÀÇ È°¼º, ºñÈ°¼ºµµ ¼¼ÆÃÇÑ´Ù.
-	function fnCallbackSyncSel = (
-		fnSetFixedDistHelperButton()
-
+	function CallbackSyncSel = (
 		if ( pairs.count == 0 ) do return ()
 		tIndex = 0
 		for i = 1 to pairs.count do (
@@ -560,43 +563,75 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		
 		if ( tIndex != 0  ) do (
 			uiLBoxFbxBip.selection = tIndex
-			fnSetList ()
- 			fnSetStatus ()
-			fnSetBipInfo()
+			SetList ()
+ 			SetStatus ()
+			SetBipInfo()
 		)
+	)
+
+	-- FBXÀÇ ¹ßÀº ¹ß°¡¶ôÀ» ¹Ù¶óº¸°í, ¹ÙÀÌÆÐµåÀÇ ¹ßÀº ¹ß°¡¶ô°ú ¼öÆòÀÎ Â÷ÀÌ·Î ÀÎÇØ
+	-- ¹ÙÀÌÆÐµå ¹ßÀÇ ³ôÀÌ¿Í °¢µµ¸¦ FBX ±âÁØÀ¸·Î ¾Ë¾Æ³»¾ßÇÔ.
+	-- ZÃàÀ¸·Î Angle¸¸Å­ ¸¶ÀÌ³Ê½º È¸ÀüµÈ ÄõÅÍ´Ï¾ðÀ» ¸®ÅÏ
+	function GetBipedFootAngleQuat bipFoot = (
+		local footAngle = 0
+		local bipToe = bipFoot.children[1]	-- ¹ÙÀÌÆÐµå ¹ßÀº ¹ß°¡¶ôÀÌ ¹«Á¶°Ç ÇÏ³ª¶óµµ ÀÖ´Ù.
+		
+		local footIndex = FindInPairsBip bipFoot
+		if footIndex == 0 do (return footAngle)	-- ¸®½ºÆ®¿¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é ±âº» Angle °ªÀ» ¸®ÅÏ
+		local toeIndex = FindInPairsBip bipToe
+		if toeIndex == 0 do (return footAngle)	-- ¸®½ºÆ®¿¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é ±âº» Angle °ªÀ» ¸®ÅÏ
+
+		local fbxFoot = pairs[footIndex].fbxObj
+		if (fbxFoot == undefined) OR (isDeleted fbxFoot) do (return footAngle)
+		local fbxToe = pairs[toeIndex].fbxObj
+		if (fbxToe == undefined) OR (isDeleted fbxToe) do (return footAngle)
+
+		local distC = distance fbxFoot.pos fbxToe.pos
+		local distB = uiSpnFootHeight.value
+		local distA = sqrt(distC * distC - distB * distB)	-- »ï°¢ÇÔ¼ö aÁ¦°ö + bÁ¦°ö = cÁ¦°ö
+		footAngle = atan(distB/distA)
+		return (quat -footAngle [0, 0, 1])
 	)
 	
 	-- pairs ÀüÃ¼¿¡ ´ëÇØ ÁöÁ¤µÈ ½Ã°£¸¸Å­ ¾Ö´Ï¸ÞÀÌ¼Ç Å°¸¦ ½ÌÅ© ÇÑ´Ù.
-	function fnSyncKeyRangedAll frameStart frameEnd = (
+	function SyncKeyRangedAll frameStart frameEnd = (
 		if ( classof rootObjBip ) == Biped_Object do (
 			rootObjBip.controller.rootnode.controller.figureMode = false
+			-- Separate FK Tracks¸¦ ºÐ¸®ÇØ¾ß ÆÈ²ÞÄ¡¿Í ¹«¸­ÀÌ ¾ÈÁ¤ÀûÀ¸·Î ±¸¿öÁø´Ù. ¹ÙÀÌÆÐµå´Â ÇÏ¹ÚÀÌ³ª Á¾¾Æ¸®¸¦ È¸Àü½ÃÅ³ ¶§ ºÎ¸ð°¡ °°ÀÌ Æ²¾îÁö´Â Æ¯¼ºÀÌ ÀÖ´Âµ¥, Æ®·¢À» ºÐ¸®ÇÏ¸é µ¶ÀÚÀûÀ¸·Î Å°°¡ ¹Ý¿µµÈ´Ù.
+			rootObjBip.controller.sepLegsTracks = true
+			rootObjBip.controller.sepArmsTracks = true
 		)
 		clearSelection()		-- ¹ÙÀÌÆÐµå°¡ ¼±ÅÃµÈ »óÅÂ¿¡¼­´Â at time ¹æ½Ä°ú È£È¯µÇÁö ¾Ê´Â´Ù.
 		
-		disableSceneRedraw() 
+		--disableSceneRedraw()
 		
 		--ÀÏ´Ü Å° »èÁ¦
 		deselectKeys rootObjBip.controller frameStart frameEnd
 		selectKeys rootObjBip.controller frameStart frameEnd
+		local deleteType
+		if uiChkDeleteExistingKeys.state then (deleteType = #allKeys) else (deleteType = #selection)
 		if ( classof rootObjBip ) == Biped_Object then (
-			biped.deleteKeys rootObjBip.controller #selection
+			biped.deleteKeys rootObjBip.controller.vertical.controller deleteType
+			biped.deleteKeys rootObjBip.controller.horizontal.controller deleteType
+			biped.deleteKeys rootObjBip.controller.turning.controller deleteType
 		)
 		else (
-			deleteKeys rootObjBip.controller #selection
+			deleteKeys rootObjBip.controller deleteType
 		)
 		
 		for p = 1 to pairs.count do (
-				deselectKeys pairs[p].bipObj.controller frameStart frameEnd
-				selectKeys pairs[p].bipObj.controller frameStart frameEnd
-				if ( classof pairs[p].bipObj ) == Biped_Object then (
-					biped.deleteKeys pairs[p].bipObj.controller #selection 
-				)
-				else (
-					deleteKeys pairs[p].bipObj.controller #selection 
-				)
+			local bipObj = pairs[p].bipObj
+			deselectKeys bipObj.controller frameStart frameEnd
+			selectKeys bipObj.controller frameStart frameEnd
+			if ( classof bipObj ) == Biped_Object then (
+				biped.deleteKeys bipObj.controller deleteType 
 			)
+			else (
+				deleteKeys bipObj.controller deleteType 
+			)
+		)
 		
-		-- root ³ëµå ¸ÕÀú.
+		-- root ³ëµå ¸ÕÀú
 		for i = frameStart to frameEnd do (
 			at time (i as time) (
 				if ( classof rootObjBip ) == Biped_Object then (
@@ -613,21 +648,34 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 				)
 			) -- at time end
 		) -- for end
-		
+
 		-- fbx º»ÀÇ Å°ÇÁ·¹ÀÓÀÌ ¶ç¾ö ¶ç¾ö ÀÖÀ» °æ¿ì ¸Å ¿ÀºêÁ§Æ®¸¶´Ù ÀüÃ¼ ÇÁ·¹ÀÓÀ» ¸ðµÎ ÀÛ¾÷ÇÑ µÚ¿¡ ´ÙÀ½ ¿ÀºêÁ§Æ®·Î ³Ñ¾î°¡´Â ¹æ½ÄÀ» ÃëÇØ¾ßÇÑ´Ù.
 		for p = 1 to pairs.count do (
+			local bipObj = pairs[p].bipObj
+			local fbxObj = pairs[p].fbxObj
+			local bipType = GetBipedType bipObj
 			for i = frameStart to frameEnd do (
 				at time (i as time) (
-					if ( classof pairs[p].bipObj ) == Biped_Object then (
-						biped.setTransform pairs[p].bipObj #pos pairs[p].fbxObj.transform.position true
-						biped.setTransform pairs[p].bipObj #rotation  pairs[p].fbxObj.transform.rotation true
+					if ( classof bipObj ) == Biped_Object then (
+						-- ¿Þ¹ßÀÌ°Å³ª ¿À¸¥¹ßÀÌ°í ¸µÅ© ¹øÈ£°¡ 3¹øÀÎ FootÀÎ °æ¿ì Offset °¢µµ¸¦ ´õÇÑ´Ù.
+						local tQuat = fbxObj.transform.rotation
+						if (bipType.limbName == #lleg OR bipType.limbName == #rleg) do (
+							if (bipType.linkIndex == 3) do (
+								-- ¿©±â¼­ ´õÇÏ´Â °¢µµ´Â Figure Sync¿¡¼­ ÀÌ¹Ì °è»êµÈ °ªÀ» Àç»ç¿ëÇÏ´Â °Íµµ °ËÅäÇßÀ¸³ª, Figure Sync ¾øÀÌ Key AllÀ» ÇÏ´Â °æ¿ìµµ °í·ÁÇá¿© ¸Å ¹ø AngleÀ» °è»êÇÏ´Â ¹æ½ÄÀ¸·Î Àû¿ë
+								-- ¿Þ¹ßÀ» ±âÁØÀ¸·Î ¹Ì¸® ¹ß¸ñ Offset AngleÀ» ¾ò¾îµÐ´Ù. (FBX¿Í ¹ÙÀÌÆÐµåÀÇ ¹ß¸ñ ±¸Á¶ Â÷ÀÌ º¸Á¤)
+								local offsetQuat = GetBipedFootAngleQuat bipObj	-- ¹ß¸ñÀ» ZÃà ¸¶ÀÌ³Ê½º ¹æÇâÀ¸·Î µ¹¸° ÄõÅÍ´Ï¾ð »ý¼º
+								tQuat = offsetQuat * tQuat	-- ±âÁ¸ FBX ¹ß¸ñ °¢µµ¿¡ ¿ÀÇÁ¼Â ¾Þ±Û Àû¿ë
+							)
+						)
+						biped.setTransform bipObj #pos fbxObj.transform.position true
+						biped.setTransform bipObj #rotation tQuat true
 					)
 					else (
 						with animate on (
 							tMatrix = matrix3 1
-							tMatrix.rotation = pairs[p].fbxObj.transform.rotation
-							tMatrix.position = pairs[p].fbxObj.transform.position		-- rotation ´ÙÀ½¿¡ position ÀÇ ¼ø¼­°¡ Áß¿ä
-							pairs[p].bipObj.transform = tMatrix
+							tMatrix.rotation = fbxObj.transform.rotation
+							tMatrix.position = fbxObj.transform.position		-- rotation ´ÙÀ½¿¡ position ÀÇ ¼ø¼­°¡ Áß¿ä
+							bipObj.transform = tMatrix
 						)
 					)
 				) -- at time end
@@ -635,21 +683,25 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 			uiPBar.value = (((p as float) / (pairs.count as float)) * 100 ) as integer
 		)
 		
-		enableSceneRedraw()
+		--enableSceneRedraw()
 	)
 	
 	-- ¼±ÅÃµÈ ¹ÙÀÌÆÐµå ÇÏ³ª¿¡ ´ëÇØ ÁöÁ¤µÈ ½Ã°£¸¸Å­ ¾Ö´Ï¸ÞÀÌ¼Ç Å°¸¦ ½ÌÅ© ÇÑ´Ù.
-	function fnSyncKeyRangedSel frameStart frameEnd obj= (
+	function SyncKeyRangedSel frameStart frameEnd obj= (
 		if ( classof rootObjBip ) == Biped_Object do (
 			rootObjBip.controller.rootnode.controller.figureMode = false
+			-- Separate FK Tracks¸¦ ºÐ¸®ÇØ¾ß ÆÈ²ÞÄ¡¿Í ¹«¸­ÀÌ ¾ÈÁ¤ÀûÀ¸·Î ±¸¿öÁø´Ù. ¹ÙÀÌÆÐµå´Â ÇÏ¹ÚÀÌ³ª Á¾¾Æ¸®¸¦ È¸Àü½ÃÅ³ ¶§ ºÎ¸ð°¡ °°ÀÌ Æ²¾îÁö´Â Æ¯¼ºÀÌ ÀÖ´Âµ¥, Æ®·¢À» ºÐ¸®ÇÏ¸é µ¶ÀÚÀûÀ¸·Î Å°°¡ ¹Ý¿µµÈ´Ù.
+			rootObjBip.controller.sepLegsTracks = true
+			rootObjBip.controller.sepArmsTracks = true
 		)
 		clearSelection()		-- ¹ÙÀÌÆÐµå°¡ ¼±ÅÃµÈ »óÅÂ¿¡¼­´Â at time ¹æ½Ä°ú È£È¯µÇÁö ¾Ê´Â´Ù.
 		
-		disableSceneRedraw() 
+		--disableSceneRedraw() 
 		
-		tIndex = fnFindInPairsBip obj
+		tIndex = FindInPairsBip obj
 		for i = frameStart to frameEnd do (
 			if ( obj == rootObjBip ) then (
+				-- root ³ëµåÀÎ °æ¿ì
 				at time (i as time) (
 					if ( classof rootObjBip ) == Biped_Object then (
 						biped.setTransform rootObjBip #pos rootObjFbx.transform.position true
@@ -666,39 +718,49 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 				) -- at time end
 			)
 			else (
+				-- ³ª¸ÓÁö ºÎÀ§ÀÎ °æ¿ì
+				local bipObj = pairs[tIndex].bipObj
+				local fbxObj = pairs[tIndex].fbxObj
 				at time (i as time) (
-					if ( classof pairs[tIndex].bipObj ) == Biped_Object then (
-						biped.setTransform pairs[tIndex].bipObj #pos pairs[tIndex].fbxObj.transform.position true
-						biped.setTransform pairs[tIndex].bipObj #rotation  pairs[tIndex].fbxObj.transform.rotation true
+					if ( classof bipObj ) == Biped_Object then (
+						local tQuat = fbxObj.transform.rotation
+						local bipType = GetBipedType bipObj
+						-- ¿Þ¹ßÀÌ°Å³ª ¿À¸¥¹ßÀÌ°í ¸µÅ© ¹øÈ£°¡ 3¹øÀÎ FootÀÎ °æ¿ì Offset °¢µµ¸¦ ´õÇÑ´Ù.
+						if (bipType.limbName == #lleg OR bipType.limbName == #rleg) do (
+							if (bipType.linkIndex == 3) do (
+								-- ¿©±â¼­ ´õÇÏ´Â °¢µµ´Â Figure Sync¿¡¼­ ÀÌ¹Ì °è»êµÈ °ªÀ» Àç»ç¿ëÇÏ´Â °Íµµ °ËÅäÇßÀ¸³ª, Figure Sync ¾øÀÌ Key AllÀ» ÇÏ´Â °æ¿ìµµ °í·ÁÇá¿© ¸Å ¹ø AngleÀ» °è»êÇÏ´Â ¹æ½ÄÀ¸·Î Àû¿ë
+								-- ¿Þ¹ßÀ» ±âÁØÀ¸·Î ¹Ì¸® ¹ß¸ñ Offset AngleÀ» ¾ò¾îµÐ´Ù. (FBX¿Í ¹ÙÀÌÆÐµåÀÇ ¹ß¸ñ ±¸Á¶ Â÷ÀÌ º¸Á¤)
+								local offsetQuat = GetBipedFootAngleQuat bipObj	-- ¹ß¸ñÀ» ZÃà ¸¶ÀÌ³Ê½º ¹æÇâÀ¸·Î µ¹¸° ÄõÅÍ´Ï¾ð »ý¼º
+								tQuat = offsetQuat * tQuat	-- ±âÁ¸ FBX ¹ß¸ñ °¢µµ¿¡ ¿ÀÇÁ¼Â ¾Þ±Û Àû¿ë
+							)
+						)
+						biped.setTransform bipObj #pos fbxObj.transform.position true
+						biped.setTransform bipObj #rotation tQuat true
 					)
 					else (
 						with animate on (
 							tMatrix = matrix3 1
-							tMatrix.rotation = pairs[tIndex].fbxObj.transform.rotation
-							tMatrix.position = pairs[tIndex].fbxObj.transform.position		-- rotation ´ÙÀ½¿¡ position ÀÇ ¼ø¼­°¡ Áß¿ä
-							pairs[tIndex].bipObj.transform = tMatrix
+							tMatrix.rotation = fbxObj.transform.rotation
+							tMatrix.position = fbxObj.transform.position		-- rotation ´ÙÀ½¿¡ position ÀÇ ¼ø¼­°¡ Áß¿ä
+							bipObj.transform = tMatrix
 						)
 					)
 				) -- at time end
 			)
 		) -- for end
 		
-		enableSceneRedraw()
+		--enableSceneRedraw()
 	)
 
 	-- Å°ÇÁ·¹ÀÓ »ý¼ºÇÏ±â Àü ÀüÃ¼ ¹ÙÀÌÆÐµå¿¡ ´ëÇØ ¸ÅÆ®¸¯½º ¸®¼ÂÀ» ÇÑ´Ù.
 	-- ¸ÅÆ®¸¯½º ¸®¼ÂÀ» ÇÏ´Â ÀÌÀ¯ : ¿¡µðÅÍ¿¡¼­ ¼öµ¿À¸·Î Align µîÀ» ÇÏ¸é ¹ÙÀÌÆÐµåÀÇ ¸ÅÆ®¸¯½º°¡ ²¿¿©¼­ ÀÌÈÄ ½ºÅ©¸³Æ®¿¡¼­ AlignÀ» ÇØµµ Á¦´ë·Î Á¤·ÄÀÌ ¾ÈµÈ´Ù.
 	-- ¾Ö´Ï¸ÞÀÌ¼Ç Å° »ý¼ºÇÏ±â Àü¿¡ ÀÏ°ý·Î ÇØ¾ßÇÏ´Â ÀÌÀ¯ : IK°¡ »ì¾ÆÀÖ´Â Limb ºÎÀ§, ¿¹¸¦ µé¾î ÇÏ¹Ú¿¡¼­ Matrix3 1 ¸¦ ÇÏ´Â ¼ø°£ »ó¹Ú¿¡ ¿µÇâÀ» ÁÖ±â¶§¹®¿¡ º»°ÝÀûÀ¸·Î Å°¸¦ »ý¼ºÇÏ±â Àü¿¡ ÇÑ¹ø ÈÈ¾î¾ßÇÑ´Ù.
-	function fnResetBipedMatrix = (
+	function ResetBipedMatrix = (
 		for i = 1 to pairs.count do (
 			pairs[i].bipObj.transform = Matrix3 1
 		)
 	)
-	
-	on uiBtnTest pressed do (
-		
-	)
-	
+
 	on uiBtnScanRoot pressed do (
 		if ( objects.count == 0 ) do return ()
 		
@@ -707,19 +769,19 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 			if ( (getUserProp o "SoxFbxToBiped_BipRoot") == true ) do ( rootObjBip = o )
 		)
 		
-		fnSetList ()
+		SetList ()
 	)
 	
 	on uiBtnFigureSync pressed do (
 		-- pairs ¸¦ °èÃþ±¸Á¶ ¼ø¼­´ë·Î ¸ÕÀú Á¤·ÄÇÑ´Ù.
 		-- Á¤·ÄÇÏ´Â ÀÌÀ¯ : ¹ÙÀÌÆÐµå´Â °ÔÃþ±¸Á¶ ¼ø¼­´ë·Î figure ¸¦ Á¶Á¤ÇØ¾ßÇÔ
 		-- 3ds Max ÃÖ½Å¹öÀüÀÌ µÇ¸é¼­ ¼ÒÆÃ ÀÛµ¿ÀÌ ¸Å¿ì ´À¸®´Ù. 0.29¹öÀü±îÁö´Â ¸®½ºÆ® °»½Å½Ã¸¶´Ù ¼ÒÆÃÀ» ÇßÀ¸³ª 0.30ºÎÅÍ ¸®½ºÆ® °»½Å½Ã¿¡´Â ¼ÒÆÃÀ» ¾ÈÇÑ´Ù.
-		fnSortByHierarchy ()
-		fnSetList ()
+		SortByHierarchy ()
+		SetList ()
 
-		if fnNonBipedCheck() do return()		-- ¹ÙÀÌÆÐµå°¡ ¾Æ´Ñ ¿ÀºêÁ§Æ®¸¦ ´ë»óÀ¸·Î ÇÏ´Â ¸®½ºÆ®¿¡¼­´Â Figure Sync ±â´ÉÀÌ ÀÛµ¿ÇÏÁö ¾Ê´Â´Ù.
+		if NonBipedCheck() do return()		-- ¹ÙÀÌÆÐµå°¡ ¾Æ´Ñ ¿ÀºêÁ§Æ®¸¦ ´ë»óÀ¸·Î ÇÏ´Â ¸®½ºÆ®¿¡¼­´Â Figure Sync ±â´ÉÀÌ ÀÛµ¿ÇÏÁö ¾Ê´Â´Ù.
 		
-		if ( fnCheckMatch () == false ) do (
+		if ( CheckMatch () == false ) do (
 			messagebox "Please check list"
 			return ()
 		)
@@ -727,6 +789,8 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		if ( pairs.count == 0 ) do return ()
 		if ( rootObjBip == undefined or rootObjFbx == undefined ) do return ()
 		
+		setCommandPanelTaskMode mode:#motion -- ¾ÈÀüÀ» À§ÇØ ¸ð¼Ç ÆÐ³Î·Î º¯°æ
+		select rootObjBip	-- ¹ÙÀÌÆÐµå ¼±ÅÃ »óÅÂ¿¡¼­ Ã³¸®ÇØ¾ßÇÔ
 		undo on (
 		tFigureSaved = rootObjBip.controller.rootnode.controller.figureMode
 		rootObjBip.controller.rootnode.controller.figureMode = true
@@ -735,158 +799,229 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		biped.setTransform rootObjBip #rotation  rootObjFbx.transform.rotation false
 		
 		for i = 1 to pairs.count do (
+			local meFbx = pairs[i].fbxObj
+			local meBip = pairs[i].bipObj
+
 			-- bipType.limbName, bipType.linkIndex
-			tBipType = fnGetBipedType pairs[i].bipObj
+			local bipType = GetBipedType meBip
 			
 			-- XÃà ½ºÄÉÀÏ¿¡ »ç¿ëÇÒ ÀÚ½Ä ¹ÙÀÌÆÐµå ¿ÀºêÁ§Æ® ¼±Á¤. undefined¸é ÀÚ½ÄÀÌ ¾ø´Â ³ëµåÀÓ. ÇÏÁö¸¸ nub¶§¹®¿¡ ÀÚ½ÄÀÌ ¾ø´Â ³ëµå°¡ ÁöÁ¤µÉ ÀÏÀº °ÅÀÇ ¾øÀ½. ÀÖ´Ù¸é À¯Àú ½Ç¼ö
-			tChildForScale = fnGetChildByScalePos pairs[i].bipObj
-			tOriginalScale = biped.getTransform pairs[i].bipObj #scale
-			
+			tChildForScale = GetChildByScalePos meBip
+			tOriginalScale = biped.getTransform meBip #scale
+
 			case of
 				(
 					-- Pelvis
-					(tBipType.limbName == #pelvis):(
+					(bipType.limbName == #pelvis):(
 						tLLeg = biped.getNode rootObjBip #lleg link:1
-						tIndex = fnFindInPairsBip tLLeg
+						tIndex = FindInPairsBip tLLeg
 						if ( tIndex != 0 ) then ( tLLegFbx = pairs[tIndex].fbxObj ) else ( tLLegFbx = undefined )
 						
 						tRLeg = biped.getNode rootObjBip #rleg link:1
-						tIndex = fnFindInPairsBip tRLeg
+						tIndex = FindInPairsBip tRLeg
 						if ( tIndex != 0 ) then ( tRLegFbx = pairs[tIndex].fbxObj ) else ( tRLegFbx = undefined )
 						
 						if ( tLLegFbx != undefined and tRLegFbx != undefined ) do (
-							tOriginalScale = biped.getTransform pairs[i].bipObj #scale
+							tOriginalScale = biped.getTransform meBip #scale
 							tDist = distance tLLegFbx.transform.position tRLegFbx.transform.position
-							pairs[i].bipObj.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
-							biped.setTransform pairs[i].bipObj #rotation ( pairs[i].fbxObj.transform.rotation ) false
-							biped.setTransform pairs[i].bipObj #scale [tOriginalScale.x, tOriginalScale.y, tDist ] false
+							meBip.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
+							biped.setTransform meBip #rotation ( meFbx.transform.rotation ) false
+							biped.setTransform meBip #scale [tOriginalScale.x, tOriginalScale.y, tDist ] false
 						)
-					)
-					
+					) -- Pelvis end
+
 					-- Left Foot
-					(tBipType.limbName == #lleg and tBipType.linkIndex == 3):(
-						tMeFbx = pairs[i].fbxObj
-						tMeBip = pairs[i].bipObj
-						
-						if (tMeBip.parent == rootObjBip) then
+					(bipType.limbName == #lleg and bipType.linkIndex == 3):(
+						if (meBip.parent == rootObjBip) then
 						(
 							tMeFbxParent = rootObjFbx
 						)
 						else
 						(
 							-- fbx Æ®¸®±¸Á¶´Â ¹ÙÀÌÆÐµå¿ÍÀÇ Ãà Á¤·ÄÀ» À§ÇØ ´ë¸®¿ë ´õ¹Ì¸¦ Á¾Á¾ »ç¿ëÇÏ±â¶§¹®¿¡ fbxÀÇ ºÎ¸ð¸¦ Ã£±â À§ÇØ¼­´Â ¹ÙÀÌÆÐµå ºÎ¸ð ±âÁØÀ¸·Î fbx ¸®½ºÆ®¸¦ °Ë»öÇØ¾ßÇÑ´Ù.
-							tMeFbxParent = pairs[(fnFindInPairsBip tMeBip.parent)].fbxObj
+							tMeFbxParent = pairs[(FindInPairsBip meBip.parent)].fbxObj
 						)
 						
-						tDeltaPosFbx = tMeFbx.transform.position - tMeFbxParent.transform.position
+						tDeltaPosFbx = meFbx.transform.position - tMeFbxParent.transform.position
 						if ( tMeFbxParent == rootObjFbx ) then (
 							tBipParent = rootObjBip
 						)
 						else (
-							tFbxParentIndex = fnFindInPairsFbx tMeFbxParent
+							tFbxParentIndex = FindInPairsFbx tMeFbxParent
 							tBipParent = pairs[tFbxParentIndex].bipObj
 						)
 						
 						tBipPos = tBipParent.transform.position + tDeltaPosFbx
-						pairs[i].bipObj.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
-						biped.setTransform pairs[i].bipObj #pos tBipPos false
+						meBip.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
+						biped.setTransform meBip #pos tBipPos false
 						
-						biped.setTransform pairs[i].bipObj #rotation tMeFbx.transform.rotation false
-						--if ( tMeFbx.name == "_Bip001 L Clavicle" ) do (print tMeFbx.transform.rotation)
+						-- FBX´Â ¹ß¸ñÀÌ ¹ß°¡¶ôÀ» ¹Ù¶óº¸°í ¹ÙÀÌÆÐµå´Â ¹ß¸ñ°ú ¹ß°¡¶ôÀÌ ÆòÇàÇÑ ¹®Á¦°¡ ÀÖ¾î¼­ uiSpnFootHeight ³ôÀÌ°ªÀ» ±â¹ÝÀ¸·Î ÇÑ È¸Àü ¿ÀÇÁ¼Â ¹Ý¿µ
+						local offsetQuat = GetBipedFootAngleQuat meBip	-- ¹ß¸ñÀ» ZÃà ¸¶ÀÌ³Ê½º ¹æÇâÀ¸·Î µ¹¸° ÄõÅÍ´Ï¾ð »ý¼º
+						offsetQuat = offsetQuat * meFbx.transform.rotation	-- ±âÁ¸ FBX ¹ß¸ñ °¢µµ¿¡ ¿ÀÇÁ¼Â ¾Þ±Û Àû¿ë
+						biped.setTransform meBip #rotation offsetQuat false
 						
-						tChildIndex = fnFindInPairsBip tChildForScale
+						tChildIndex = FindInPairsBip tChildForScale
 						if ( tChildIndex != 0 ) do (
 							tChildFbx = pairs[tChildIndex].fbxObj
-							tLocalDistM3 = fnGetLocalTransform tMeFbx.transform tChildFbx.transform		-- ÀÚ½ÄÀÇ ·ÎÄÃ Æ®·£½ºÆû
-							biped.setTransform pairs[i].bipObj #scale [tLocalDistM3.position.x, tOriginalScale.y, tOriginalScale.z ] false
+							--tLocalDistM3 = GetLocalTransform meFbx.transform tChildFbx.transform		-- ÀÚ½ÄÀÇ ·ÎÄÃ Æ®·£½ºÆûÀ» »ç¿ëÇÏ´Â ¹æ½ÄÀº ºÀÀÎ.
+							--FBX´Â ¹ßÀÌ ¹ß°¡¶ôÀ» ¹Ù¶óº¸´Âµ¥ ¹ÙÀÌÆÐµå´Â ¹ß°ú ¹ß°¡¶ôÀÌ ÆòÇàÇÏ°í ³ôÀÌ Â÷°¡ ÀÖ´Â ¹æ½ÄÀÌ´Ù. FBXÀÇ ¹ß È¸Àü°ªÀ» Á¦´ë·Î ¹Ý¿µÇÏ·Á¸é ¹ß°¡¶ôÀ» ¹Ù¶óº¸´Â ¹æ½ÄÀ¸·Î ÇØ¾ß¸¸ ÇÑ´Ù. ¹Ù¶óº¸´Â ¹æ½Ä¿¡¼­´Â ÀÚ½ÄÀÇ ³ôÀÌ°ªÀÌ 0ÀÎ ¹®Á¦°¡ ¹ß»ýÇÑ´Ù.
+							--±×·¡¼­ ¹ß¿¡ ´ëÇØ¼­¸¸ ¼öµ¿À¸·Î Foot Height °ªÀ» ÁöÁ¤ÇÏ¿© »ç¿ëÇÑ´Ù.
+							biped.setTransform meBip #scale [uiSpnFootHeight.value, tOriginalScale.y, tOriginalScale.z ] false
 						)
-					)
+					) -- Left Foot end
 					
 					-- Right Foot
-					(tBipType.limbName == #rleg and tBipType.linkIndex == 3):(
-						tMeFbx = pairs[i].fbxObj
-						tMeBip = pairs[i].bipObj
-					
-						if (tMeBip.parent == rootObjBip) then
+					(bipType.limbName == #rleg and bipType.linkIndex == 3):(
+						if (meBip.parent == rootObjBip) then
 						(
 							tMeFbxParent = rootObjFbx
 						)
 						else
 						(
 							-- fbx Æ®¸®±¸Á¶´Â ¹ÙÀÌÆÐµå¿ÍÀÇ Ãà Á¤·ÄÀ» À§ÇØ ´ë¸®¿ë ´õ¹Ì¸¦ Á¾Á¾ »ç¿ëÇÏ±â¶§¹®¿¡ fbxÀÇ ºÎ¸ð¸¦ Ã£±â À§ÇØ¼­´Â ¹ÙÀÌÆÐµå ºÎ¸ð ±âÁØÀ¸·Î fbx ¸®½ºÆ®¸¦ °Ë»öÇØ¾ßÇÑ´Ù.
-							tMeFbxParent = pairs[(fnFindInPairsBip tMeBip.parent)].fbxObj
+							tMeFbxParent = pairs[(FindInPairsBip meBip.parent)].fbxObj
 						)
 						
-						tDeltaPosFbx = tMeFbx.transform.position - tMeFbxParent.transform.position
+						tDeltaPosFbx = meFbx.transform.position - tMeFbxParent.transform.position
 						if ( tMeFbxParent == rootObjFbx ) then (
 							tBipParent = rootObjBip
 						)
 						else (
-							tFbxParentIndex = fnFindInPairsFbx tMeFbxParent
+							tFbxParentIndex = FindInPairsFbx tMeFbxParent
 							tBipParent = pairs[tFbxParentIndex].bipObj
 						)
 						
 						tBipPos = tBipParent.transform.position + tDeltaPosFbx
-						pairs[i].bipObj.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
-						biped.setTransform pairs[i].bipObj #pos tBipPos false
+						meBip.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
+						biped.setTransform meBip #pos tBipPos false
 						
-						biped.setTransform pairs[i].bipObj #rotation tMeFbx.transform.rotation false
-						--if ( tMeFbx.name == "_Bip001 L Clavicle" ) do (print tMeFbx.transform.rotation)
+						-- FBX´Â ¹ß¸ñÀÌ ¹ß°¡¶ôÀ» ¹Ù¶óº¸°í ¹ÙÀÌÆÐµå´Â ¹ß¸ñ°ú ¹ß°¡¶ôÀÌ ÆòÇàÇÑ ¹®Á¦°¡ ÀÖ¾î¼­ uiSpnFootHeight ³ôÀÌ°ªÀ» ±â¹ÝÀ¸·Î ÇÑ È¸Àü ¿ÀÇÁ¼Â ¹Ý¿µ
+						local offsetQuat = GetBipedFootAngleQuat meBip	-- ¹ß¸ñÀ» ZÃà ¸¶ÀÌ³Ê½º ¹æÇâÀ¸·Î µ¹¸° ÄõÅÍ´Ï¾ð »ý¼º
+						offsetQuat = offsetQuat * meFbx.transform.rotation	-- ±âÁ¸ FBX ¹ß¸ñ °¢µµ¿¡ ¿ÀÇÁ¼Â ¾Þ±Û Àû¿ë
+						biped.setTransform meBip #rotation offsetQuat false
 						
-						tChildIndex = fnFindInPairsBip tChildForScale
+						tChildIndex = FindInPairsBip tChildForScale
 						if ( tChildIndex != 0 ) do (
 							tChildFbx = pairs[tChildIndex].fbxObj
-							tLocalDistM3 = fnGetLocalTransform tMeFbx.transform tChildFbx.transform		-- ÀÚ½ÄÀÇ ·ÎÄÃ Æ®·£½ºÆû
-							biped.setTransform pairs[i].bipObj #scale [tLocalDistM3.position.x, tOriginalScale.y, tOriginalScale.z ] false
+							--tLocalDistM3 = GetLocalTransform meFbx.transform tChildFbx.transform		-- ÀÚ½ÄÀÇ ·ÎÄÃ Æ®·£½ºÆûÀ» »ç¿ëÇÏ´Â ¹æ½ÄÀº ºÀÀÎ.
+							--FBX´Â ¹ßÀÌ ¹ß°¡¶ôÀ» ¹Ù¶óº¸´Âµ¥ ¹ÙÀÌÆÐµå´Â ¹ß°ú ¹ß°¡¶ôÀÌ ÆòÇàÇÏ°í ³ôÀÌ Â÷°¡ ÀÖ´Â ¹æ½ÄÀÌ´Ù. FBXÀÇ ¹ß È¸Àü°ªÀ» Á¦´ë·Î ¹Ý¿µÇÏ·Á¸é ¹ß°¡¶ôÀ» ¹Ù¶óº¸´Â ¹æ½ÄÀ¸·Î ÇØ¾ß¸¸ ÇÑ´Ù. ¹Ù¶óº¸´Â ¹æ½Ä¿¡¼­´Â ÀÚ½ÄÀÇ ³ôÀÌ°ªÀÌ 0ÀÎ ¹®Á¦°¡ ¹ß»ýÇÑ´Ù.
+							--±×·¡¼­ ¹ß¿¡ ´ëÇØ¼­¸¸ ¼öµ¿À¸·Î Foot Height °ªÀ» ÁöÁ¤ÇÏ¿© »ç¿ëÇÑ´Ù.
+							biped.setTransform meBip #scale [uiSpnFootHeight.value, tOriginalScale.y, tOriginalScale.z ] false
 						)
-					)
-					
-					default: (
-						tMeFbx = pairs[i].fbxObj
-						tMeBip = pairs[i].bipObj
-						
-						if (tMeBip.parent == rootObjBip) then
+					) -- Right Foot end
+
+					-- L R Clavicle ¹ÙÀÌÆÐµå ¼â°ñÀº figure ¸ðµå¿¡¼­ È¸ÀüÀÌ Á¦´ë·Î ÅëÁ¦µÇÁö ¾Ê´Â ¹®Á¦°¡ ÀÖ¾î¼­ standard ¸ðµå¿¡¼­ ¹æÇâÀ» Àâ°í copy posture·Î figure ¸ðµå¿¡¼­ Àû¿ë (ÁöÀúºÐÇÑ ¿ìÈ¸¹æ¹ýÀÓ)
+					-- °ü·Ã Æ÷½ºÆÃ https://forums.cgsociety.org/t/clavicle-orientation-in-figure-mode-biped/1512488/3
+					(bipType.limbName == #larm and bipType.linkIndex == 1 or bipType.limbName == #rarm and bipType.linkIndex == 1):(
+						if (meBip.parent == rootObjBip) then
 						(
 							tMeFbxParent = rootObjFbx
 						)
 						else
 						(
 							-- fbx Æ®¸®±¸Á¶´Â ¹ÙÀÌÆÐµå¿ÍÀÇ Ãà Á¤·ÄÀ» À§ÇØ ´ë¸®¿ë ´õ¹Ì¸¦ Á¾Á¾ »ç¿ëÇÏ±â¶§¹®¿¡ fbxÀÇ ºÎ¸ð¸¦ Ã£±â À§ÇØ¼­´Â ¹ÙÀÌÆÐµå ºÎ¸ð ±âÁØÀ¸·Î fbx ¸®½ºÆ®¸¦ °Ë»öÇØ¾ßÇÑ´Ù.
-							local tIndex = fnFindInPairsBip tMeBip.parent
+							tMeFbxParent = pairs[(FindInPairsBip meBip.parent)].fbxObj
+						)
+
+						tDeltaPosFbx = meFbx.transform.position - tMeFbxParent.transform.position
+						if ( tMeFbxParent == rootObjFbx ) then (
+							tBipParent = rootObjBip
+						)
+						else (
+							tFbxParentIndex = FindInPairsFbx tMeFbxParent
+							-- Xtraº» µîÀ» »ç¿ëÇÒ ¶§ XtraÀÇ ºÎ¸ð¸¦ Æ®À§½ºÆ®º»À» ºÎ¸ð·Î »ç¿ëÇÏ´Â µî °èÃþ±¸Á¶°¡ ÀÌ¾îÁöÁö ¾Ê´Â »óÈ²¿¡¼­
+							-- Â¦À» Ã£Áö ¸øÇÏ°í tFbxParentIndex °ªÀÌ 0ÀÌ µÉ ¼ö ÀÖ´Ù.
+							-- ±×·¯¸é ¾îÂ¿ ¼ö ¾øÀÌ ÀÛµ¿Àº ÇÏµµ·Ï meBip.parent¸¦ »ç¿ëÇÏÀÚ.
+							if ( tFbxParentIndex != 0 ) then (
+								tBipParent = pairs[tFbxParentIndex].bipObj
+							)
+							else (
+								tBipParent = meBip.parent;
+							)
+						)
+						
+						tBipPos = tBipParent.transform.position + tDeltaPosFbx
+						meBip.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
+						biped.setTransform meBip #pos tBipPos false
+						
+						-- ¼â°ñ ·ÎÅ×ÀÌ¼Ç Ã³¸® ½ÃÀÛ
+						rootObjBip.controller.figureMode = false -- Àá½Ã standard ¸ðµå·Î ÀüÈ¯
+						biped.setTransform meBip #rotation meFbx.transform.rotation false
+						local tNowBipedController = meBip.controller -- Áßº¹ »ç¿ëÇÏ´Â ÄÁÆ®·Ñ·¯¸¦ ·ÎÄÃ º¯¼ö·Î »ý¼º
+						-- ÄÝ·º¼ÇÀÌ ¾øÀ¸¸é ÇÏ³ª ¸¸µç´Ù
+						if (biped.numCopyCollections tNowBipedController == 0) do (
+							biped.createCopyCollection tNowBipedController "Col01"
+						)
+						select meBip
+						local tPostureName = biped.copyPosture tNowBipedController #posture true true true
+						rootObjBip.controller.figureMode = true -- ´Ù½Ã figure ¸ðµå·Î ÀüÈ¯
+						biped.pastePosture tNowBipedController #posture false tPostureName
+						biped.deleteCopy tNowBipedController #posture tPostureName
+						-- ¼â°ñ ·ÎÅ×ÀÌ¼Ç Ã³¸® ³¡
+
+						tChildIndex = FindInPairsBip tChildForScale
+						if ( tChildIndex != 0 ) do (
+							tChildFbx = pairs[tChildIndex].fbxObj
+							tDist = distance meFbx.transform.position tChildFbx.transform.position		-- ÀÚ½Ä°úÀÇ °Å¸®
+							biped.setTransform meBip #scale [tDist, tOriginalScale.y, tOriginalScale.z ] false
+						)
+					) -- L R Clavicle end
+					
+					default: (
+						if (meBip.parent == rootObjBip) then
+						(
+							tMeFbxParent = rootObjFbx
+						)
+						else
+						(
+							-- fbx Æ®¸®±¸Á¶´Â ¹ÙÀÌÆÐµå¿ÍÀÇ Ãà Á¤·ÄÀ» À§ÇØ ´ë¸®¿ë ´õ¹Ì¸¦ Á¾Á¾ »ç¿ëÇÏ±â¶§¹®¿¡ fbxÀÇ ºÎ¸ð¸¦ Ã£±â À§ÇØ¼­´Â ¹ÙÀÌÆÐµå ºÎ¸ð ±âÁØÀ¸·Î fbx ¸®½ºÆ®¸¦ °Ë»öÇØ¾ßÇÑ´Ù.
+							local tIndex = FindInPairsBip meBip.parent
 							if tIndex == 0 then
 							(
-								messagebox ("Warning - There are unmatched Biped - " + tMeBip.parent.name)
-								exit
+								--°æ°í ¸Þ½ÃÁö¹Ú½º ºÀÀÎ, ¿¹¿ÜÃ³¸®°¡ Ãß°¡µÇ¸é¼­ °æ°í´Â ¾ø¾îµµ µÉ µí.
+								--messagebox ("Warning - There are no pairs in the list that match the 'biped' you specified as parent. - " + tMeBip.parent.name)
+								-- ¸®½ºÆ®¿¡ ¾ø´Â Æ®À§½ºÆ®º»ÀÇ ÀÚ½ÄÀ¸·Î ºÙÀº Xtra º»À» ¸®½ºÆ®¿¡ »ç¿ëÇÒ °æ¿ì ÀÌ·± ÀÏÀÌ »ý±æ ¼ö ÀÖ´Ù.
+								-- ¿©±â¼­ Áß´ÜÇÒ ¼öµµ ¾øÀ¸´Ï ÀÚ½ÅÀÇ fbx Æä¾î¸¦ Ã£°í ±× fbxÀÇ ºÎ¸ð¸¦ »ç¿ëÇÏÀÚ.
+								tIndex = FindInPairsBip meBip -- ÇöÀç ¹ÙÀÌÆÐµåÀÇ ÀÎµ¦½º¸¦ ¾Ë¾Æ³»°í
+								tMeFbxParent = pairs[tIndex].fbxObj.parent -- ÀÎµ¦½º ½ÖÀÇ fbxÀÇ ºÎ¸ð¸¦ tMeFbxParent¿¡ ³Ö´Â´Ù.
+								-- °æ°íµµ ÇßÀ¸´Ï ÀÌ·¡µµ ¾ÈµÇ´Â°Ç ³ªÁß¿¡ Á»´õ °í¹ÎÇØº¼ ºÎºÐ.
 							)
-							else
-							(
+							else (
 								tMeFbxParent = pairs[tIndex].fbxObj
 							)
 						)
 						
-						tDeltaPosFbx = tMeFbx.transform.position - tMeFbxParent.transform.position
+						tDeltaPosFbx = meFbx.transform.position - tMeFbxParent.transform.position
 						if ( tMeFbxParent == rootObjFbx ) then (
 							tBipParent = rootObjBip
 						)
 						else (
-							tFbxParentIndex = fnFindInPairsFbx tMeFbxParent
-							tBipParent = pairs[tFbxParentIndex].bipObj
+							tFbxParentIndex = FindInPairsFbx tMeFbxParent
+							-- Xtraº» µîÀ» »ç¿ëÇÒ ¶§ XtraÀÇ ºÎ¸ð¸¦ Æ®À§½ºÆ®º»À» ºÎ¸ð·Î »ç¿ëÇÏ´Â µî °èÃþ±¸Á¶°¡ ÀÌ¾îÁöÁö ¾Ê´Â »óÈ²¿¡¼­
+							-- Â¦À» Ã£Áö ¸øÇÏ°í tFbxParentIndex °ªÀÌ 0ÀÌ µÉ ¼ö ÀÖ´Ù.
+							-- ±×·¯¸é ¾îÂ¿ ¼ö ¾øÀÌ ÀÛµ¿Àº ÇÏµµ·Ï meBip.parent¸¦ »ç¿ëÇÏÀÚ.
+							if ( tFbxParentIndex != 0 ) then (
+								tBipParent = pairs[tFbxParentIndex].bipObj
+							)
+							else (
+								tBipParent = meBip.parent;
+							)
 						)
 						
 						tBipPos = tBipParent.transform.position + tDeltaPosFbx
-						pairs[i].bipObj.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
-						biped.setTransform pairs[i].bipObj #pos tBipPos false
+						-- ´ÙÀ½ Æ®·£½ºÆû ÃÊ±âÈ­´Â ¼â°ñÀ» ºÐ¸®ÇÏ¸é¼­ À¯ÁöÇØ¾ßÇÏ´ÂÁö Å×½ºÆ® ÇÊ¿ä
+						meBip.transform = Matrix3 1 -- Æ®·£½ºÆû ÃÊ±âÈ­, ¸Æ½º ¿¡µðÅÍ¿¡¼­ À¯Àú¿¡ ÀÇÇØ Align µÈ º»Àº Æ®·£½ºÆûÀÌ ²¿¿©ÀÖ´Â °æ¿ì°¡ °¡²û ¹ß»ýÇÑ´Ù(´ëÇ¥ÀûÀ¸·Î ¿À¸¥ÂÊ ¼â°ñ). ÀÌ·± °æ¿ì¿¡µµ ¹®Á¦ ¾øÀÌ µÇ·Á¸é Matrix3 1 ·Î ÃÊ±âÈ­ ÇØÁÖ¸é ¾ÈÀüÇÏ´Ù.
+						biped.setTransform meBip #pos tBipPos false
 						
-						biped.setTransform pairs[i].bipObj #rotation tMeFbx.transform.rotation false
-						--if ( tMeFbx.name == "_Bip001 L Clavicle" ) do (print tMeFbx.transform.rotation)
+						biped.setTransform meBip #rotation meFbx.transform.rotation false
 						
-						tChildIndex = fnFindInPairsBip tChildForScale
+						tChildIndex = FindInPairsBip tChildForScale
 						if ( tChildIndex != 0 ) do (
 							tChildFbx = pairs[tChildIndex].fbxObj
-							tDist = distance tMeFbx.transform.position tChildFbx.transform.position		-- ÀÚ½Ä°úÀÇ °Å¸®
-							biped.setTransform pairs[i].bipObj #scale [tDist, tOriginalScale.y, tOriginalScale.z ] false
+							tDist = distance meFbx.transform.position tChildFbx.transform.position		-- ÀÚ½Ä°úÀÇ °Å¸®
+							biped.setTransform meBip #scale [tDist, tOriginalScale.y, tOriginalScale.z ] false
 						)
-					)
+					) -- default end
 				) -- case end
 		) -- for end
 		) -- undo off
@@ -894,8 +1029,8 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 -- 		rootObjBip.controller.figureMode = tFigureSaved -- ÀÚµ¿À¸·Î Figure¸ðµå¿¡¼­ ¿ø·¡ ÀÏ¹Ý ¸ðµå·Î µÇµ¹¾Æ°¡µµ·Ï ÇÒ °æ¿ì Clevicle ¿¡¼­ ÀÌÀ¯¸¦ ¾Ë ¼ö ¾ø´Â ·ÎÅ×ÀÌ¼Ç ¿¡·¯°¡ ¹ß»ýÇØ¼­ ¹«Á¶°Ç Figure¸ðµå·Î ³¡³»µµ·Ï ÇÔ
 	)
 	
-	on uiBtnSyncAll pressed do (
-		if ( fnCheckMatch () == false ) do (
+	on uiBtnKeyAll pressed do (
+		if ( CheckMatch () == false ) do (
 			messagebox "Please check list"
 			return ()
 		)
@@ -912,14 +1047,14 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		)
 		tSelBackup = selection as array
 		undo on (
-			fnResetBipedMatrix()
-			fnSyncKeyRangedAll frameStart frameEnd
+			ResetBipedMatrix()
+			SyncKeyRangedAll frameStart frameEnd
 		)
 		select tSelBackup
 	)
 	
-	on uiBtnSyncSel pressed do (
-		if ( fnCheckMatch () == false ) do (
+	on uiBtnKeySelectedOne pressed do (
+		if ( CheckMatch () == false ) do (
 			messagebox "Please check list"
 			return ()
 		)
@@ -927,7 +1062,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		if ( rootObjBip == undefined or rootObjFbx == undefined ) do return ()
 		
 		-- ¼±ÅÃµÈ ¿ÀºêÁ§Æ®°¡ ¸®½ºÆ®¿¡ ¾øÀ¸¸é ±×³É ¸®ÅÏ
-		if ( ( fnFindInPairsBip selection[1] ) == 0 and selection[1] != rootObjBip ) do return ()
+		if ( ( FindInPairsBip selection[1] ) == 0 and selection[1] != rootObjBip ) do return ()
 		
 		if ( uiRBtnKeyOption.state == 1 ) then (
 			frameStart = animationRange.start as integer / TicksPerFrame
@@ -940,7 +1075,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		tSelBackup = selection as array
 		undo on (
 			-- ¼±ÅÃµÈ °Í ÇÏ³ª¿¡ ´ëÇØ¼­´Â Matrix3 1 À» ÇÏ¸é ¾ÈµÈ´Ù. Limb°°Àº°÷¿¡¼­ ÇÏÀ§ ÇÏ³ª¿¡¼­ ÇÏ¸é »óÀ§¿¡µµ ¿µÇâÀ» ÁØ´Ù.
-			fnSyncKeyRangedSel frameStart frameEnd selection[1]
+			SyncKeyRangedSel frameStart frameEnd selection[1]
 		)
 		select tSelBackup
 	)
@@ -949,24 +1084,165 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		pairs = #()
 		rootObjFbx = undefined
 		rootObjBip = undefined
-		fnSetList ()
+		SetList ()
+	)
+
+	-- Bip001ÀÌ ¾Æ´Ñ ÀÏ¹Ý ¿ÀºêÁ§Æ®¿¡¼­ ¾Ö´Ï¸ÞÀÌ¼Ç Å° ¼ýÀÚ¸¦ ¾Ë¾Æ³»´Â ÇÔ¼ö.
+	-- ÀÏ¹Ý ¹ÙÀÌÆÐµå¿¡¼­ keys¸¦ Á÷Á¢ ¾ò¾î¿À´Â ¹æ¹ýÀ» ¸øÃ£¾Æ¼­ count ¾ò¾î¿À´Â °ÍÀ» ¿ìÈ¸ÀûÀ¸·Î ±¸Çö.
+	function GetKeyCountNonRootBiped bipObj = (
+		local keyCount = 1
+		local breakFlag = false
+		while breakFlag == false do (
+			try(biped.getKey bipObj.transform.controller keyCount) catch (
+				breakFlag = true
+				return (keyCount - 1)
+			)
+			keyCount += 1
+		)
+	)
+
+	on uiBtnSetAnimRangeBySelectedObj pressed do (
+		if selection.count == 0 then return()
+		local tempFirst
+		local tempLast
+		local returnFirst = 999999f
+		local returnLast = 0f
+		for obj in selection do (
+			if (classof obj.baseobject) == Biped_Object then (
+				if obj == obj.transform.controller.rootNode then (
+					-- Bip001ÀÎ °æ¿ì
+					local bipRootKeys = obj.transform.controller.horizontal.controller.keys -- ÀÌ°Ç Bip001¿ë
+					if bipRootKeys.count != 0 do (
+						tempFirst = bipRootKeys[1].time
+						tempLast = bipRootKeys[bipRootKeys.count].time
+					)
+				)
+				else (
+					-- ÀÏ¹Ý ¹ÙÀÌÆÐµåÀÎ °æ¿ì
+					local bipKeyCount = GetKeyCountNonRootBiped obj
+					if bipKeyCount != 0 do (
+						tempFirst = (biped.getKey obj.transform.controller 1).time
+						tempLast = (biped.getKey obj.transform.controller bipKeyCount).time
+					)
+				)
+			)
+			else (
+				-- ¹ÙÀÌÆÐµå°¡ ¾Æ´Ñ ÀÏ¹Ý ¿ÀºêÁ§Æ®ÀÎ °æ¿ì
+				local notError = true
+				try (obj.position.controller) catch (notError = false)	-- ¿¹¿ÜÃ³¸®. ¹ÙÀÌÆÐµå Nub ´õ¹Ì°°Àº °æ¿ì ¹ÙÀÌÆÐµå Å¬·¡½ºµµ ¾Æ´Ï°í ÄÁÆ®·Ñ·¯¸¦ ¾ò¾î¿Ã ¼ö ¾øÀ½.
+				if notError do
+				(
+					local positionKeys = obj.position.controller.keys
+					local rotationKeys = obj.rotation.controller.keys
+					local keys
+					if (positionKeys.count > rotationKeys.count) then (
+						keys = positionKeys
+					)
+					else (
+						keys = rotationKeys
+					)
+					local keyCount = keys.count
+					if keyCount >= 1 do (
+						tempFirst = keys[1].time
+						tempLast = keys[keyCount].time
+					)
+				)
+			)
+			returnFirst = amin tempFirst returnFirst
+			returnLast = amax tempLast returnLast
+		)
+		animationRange = Interval returnFirst returnLast
 	)
 	
 	on uiBtnDoReplace pressed do (
 		strToFind = uiETxtReplaceFrom.text
 		strToReplace = uiETxtReplaceTo.text
 	
-		for o in selection do(
-			tStr = o.name
-			tPos = findstring tStr strToFind
-			if (tPos != undefined) do (
-				newStr = replace tStr tPos strToFind.count strToReplace
-				o.name = newStr
-			)
-		)
+        undo on (
+            for o in selection do(
+                tStr = o.name
+                tPos = findstring tStr strToFind
+                if (tPos != undefined) do (
+                    newStr = replace tStr tPos strToFind.count strToReplace
+                    o.name = newStr
+                )
+            )
+        ) --undo end
 		
-		fnSetList ()
+		SetList ()
 	)
+
+    on uiBtnDoAppend pressed do (
+        if ( selection.count >= 3) do (
+            messagebox ( "Please select only one or two objects." )
+            return()
+        )
+        
+        undo on (
+            --ÇÏ³ª ¼±ÅÃÇÏ¸é ±×³É ÅØ½ºÆ®¸¸ Ãß°¡
+            if ( selection.count == 1) do (
+                selection[1].name += uiETxtAppend.text
+            )
+
+            --µÑ ¼±ÅÃÇÏ¸é 1¹ø ÀÌ¸§À» ±â¹ÝÀ¸·Î 2¹ø¿¡ ÅØ½ºÆ®¸¦ Ãß°¡ÇØÁÜ
+            if ( selection.count == 2) do (
+                selection[2].name = selection[1].name + uiETxtAppend.text
+            )
+        ) --undo end
+    )
+
+    on uiBtnDoAppendAlign pressed do (
+        if ( selection.count != 2) do (
+            messagebox ( "You need to select two objects." )
+            return()
+        )
+
+        undo on (
+            selection[2].transform = selection[1].transform
+            selection[2].parent = selection[1]
+            selection[2].name = selection[1].name + uiETxtAppend.text
+        ) --undo end
+    )
+
+    on uiBtnDoAppendAlignedPoint pressed do (
+        undo on (
+            tSel = #()
+            for o in selection do(
+                tPoint = Point()
+                tPoint.wirecolor = (color 14 255 2)
+                tPoint.size = uiSpnPointSize.value
+                tPoint.parent = o
+                tPoint.transform = o.transform
+                tPoint.name = o.name + uiETxtAppend.text
+                append tSel tPoint
+            )
+        select tSel
+        )--undo end
+    )
+
+    on uiBtnAddPositionConstraint pressed do (
+        undo on (
+            for o in selection do(
+                o.pos.controller = Position_Constraint ()
+            )
+        ) -- undo end
+    )
+
+    on uiBtnAddLookatConstraint pressed do (
+        undo on (
+        for o in selection do(
+            o.rotation.controller = LookAt_Constraint ()
+        )
+        ) -- undo end
+    )
+
+    on uiBtnAddOrientationConstraint pressed do (
+        undo on (
+        for o in selection do(
+            o.rotation.controller = Orientation_Constraint ()
+        )
+        ) -- undo end
+    )
 	
 	on uiBtnSetRootFbx pressed do (
 		if selection[1] == undefined do return ()
@@ -988,14 +1264,14 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		)
 		
 		-- À¯Àú ÇÁ·ÎÆÛÆ¼¿¡ ·çÆ® ³ëµå¶ó´Â Ç¥½Ã¸¦ ÇÑ´Ù.
-		fnSetUserPropFbxRoot selection[1]
+		SetUserPropFbxRoot selection[1]
 		
 		if uiCBoxAutoHide.state do (
 			hide selection[1]
 			clearSelection()
 		)
 		
-		fnSetList ()
+		SetList ()
 	)
 	
 	on uiBtnSetRootBip pressed do (
@@ -1018,18 +1294,18 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		)
 		
 		-- À¯Àú ÇÁ·ÎÆÛÆ¼¿¡ ·çÆ® ³ëµå¶ó´Â Ç¥½Ã¸¦ ÇÑ´Ù.
-		fnSetUserPropBipRoot selection[1]
+		SetUserPropBipRoot selection[1]
 		
 		if uiCBoxAutoHide.state do (
 			hide selection[1]
 			clearSelection()
 		)
 		
-		fnSetList ()
+		SetList ()
 	)
 	
 	on uiLBoxFbxBip selected arg do (
-		fnSetBipInfo ()
+		SetBipInfo ()
 	)
 	
 	on uiLBoxFbxBip doubleClicked arg do (
@@ -1082,13 +1358,13 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 	on uiBtnLoad pressed do
 	(
 		if ( rootObjFbx == undefined or rootObjBip == undefined ) do (
-			messagebox "You must Get root objects first"
+			messagebox "You must Get root objects tempFirst"
 			return ()
 		)
 		
 		sftbFile = (getOpenFileName caption:"Select sftb file" types:"SOX Fbx to Biped (*.sftb)|*.sftb|All (*.*)|*.*|") as string
 		if sftbFile == "undefined" do return ()
-		if (fnCheckFileExt sftbFile) == false do (messagebox "*.sftb È®ÀåÀÚ¸¸ Áö¿øÇÕ´Ï´Ù"; return())
+		if (CheckFileExt sftbFile) == false do (messagebox "*.sftb È®ÀåÀÚ¸¸ Áö¿øÇÕ´Ï´Ù"; return())
 		
 		openStream = openFile sftbFile mode:#rt
 		
@@ -1099,20 +1375,25 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 			-- Handle ¹øÈ£·Î ºÒ·¯¿À´Â ¹æ½Ä
 			while (eof openStream) != true do
 			(
-				tempKeyword = readDelimitedString openStream "="
+				tempKeyword = readDelimitedString openStream "="	-- "=" µô¸®¹ÌÅÍ¸¦ ¸¸³¯ ¶§±îÁö ½ºÆ®¸² ÀÐ¾îµéÀÓ
 				tempKeyword = trimLeft tempKeyword -- ¾ÈÀüÀ» À§ÇØ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ø´Ù
 				tempKeyword = trimRight tempKeyword -- ¾ÈÀüÀ» À§ÇØ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ø´Ù
 				
 				case of
 				(
+					(tempKeyword == "FootHeight"):(
+						tempValue = readDelimitedString openStream "\n"	-- ¸®ÅÏ µô¸®¹ÌÅÍ¸¦ ¸¸³¯ ¶§±îÁö ½ºÆ®¸² ÀÐ¾îµéÀÓ
+						uiSpnFootHeight.value = execute tempValue	-- ½ºÆ®¸µÀ¸·ÎºÎÅÍ ³ôÀÌ°ª ¾ò¾î³»¼­ ui¿¡ Àû¿ë
+					)
+
 					(tempKeyword == "FbxObjHandle"):(
-						append pairs (pairdef ()) ; pairsIndex += 1
-						tempValue = readDelimitedString openStream "\n"
+						append pairs (pairdef ()) ; pairsIndex += 1	-- pairs ¹è¿­¿¡ Ãß°¡
+						tempValue = readDelimitedString openStream "\n"	-- ¸®ÅÏ µô¸®¹ÌÅÍ¸¦ ¸¸³¯ ¶§±îÁö ½ºÆ®¸² ÀÐ¾îµéÀÓ
 						tHandle = execute tempValue
 						tHandleObj = try ( maxOps.getNodeByHandle tHandle ) catch (undefined)
 						pairs[pairsIndex].fbxObj = undefined
 						
-						--if ( tHandle != undefined  and (fnIfChild rootObjFbx tHandleObj) ) do (
+						--if ( tHandle != undefined  and (IfChild rootObjFbx tHandleObj) ) do (
 						if ( tHandle != undefined  ) do (
 							pairs[pairsIndex].fbxObj = tHandleObj
 						)
@@ -1123,7 +1404,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 						tHandle = execute tempValue
 						tHandleObj = try ( maxOps.getNodeByHandle tHandle ) catch (undefined)
 						pairs[pairsIndex].bipObj = undefined
-						if ( tHandle != undefined and (fnIfChild rootObjBip tHandleObj) ) do (
+						if ( tHandle != undefined and (IfChild rootObjBip tHandleObj) ) do (
 							pairs[pairsIndex].bipObj = tHandleObj
 						)
 					)
@@ -1142,16 +1423,21 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 				
 				case of
 				(
+					(tempKeyword == "FootHeight"):(
+						tempValue = readDelimitedString openStream "\n"	-- ¸®ÅÏ µô¸®¹ÌÅÍ¸¦ ¸¸³¯ ¶§±îÁö ½ºÆ®¸² ÀÐ¾îµéÀÓ
+						uiSpnFootHeight.value = execute tempValue	-- ½ºÆ®¸µÀ¸·ÎºÎÅÍ ³ôÀÌ°ª ¾ò¾î³»¼­ ui¿¡ Àû¿ë
+					)
+					
 					(tempKeyword == "FbxObjName"):(
 						append pairs (pairdef ()) ; pairsIndex += 1
 						tempValue = readDelimitedString openStream "\n"
 						tempValue = trimLeft tempValue -- ¾ÈÀüÀ» À§ÇØ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ø´Ù
 						tempValue = trimRight tempValue -- ¾ÈÀüÀ» À§ÇØ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ø´Ù
-						tObjs = fnGetObjsByName tempValue
+						tObjs = GetObjsByName tempValue
 						pairs[pairsIndex].fbxObj = undefined
 						if ( tObjs.count != 0 ) do (
 							for o in tObjs do (
-								--if ( fnIfChild rootObjFbx o ) do ( pairs[pairsIndex].fbxObj = o )
+								--if ( IfChild rootObjFbx o ) do ( pairs[pairsIndex].fbxObj = o )
 								pairs[pairsIndex].fbxObj = o
 							)
 						)
@@ -1162,11 +1448,11 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 						tObj = getNodeByName tempValue
 						tempValue = trimLeft tempValue -- ¾ÈÀüÀ» À§ÇØ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ø´Ù
 						tempValue = trimRight tempValue -- ¾ÈÀüÀ» À§ÇØ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ø´Ù
-						tObjs = fnGetObjsByName tempValue
+						tObjs = GetObjsByName tempValue
 						pairs[pairsIndex].bipObj = undefined
 						if ( tObjs.count != 0 ) do (
 							for o in tObjs do (
-								--if ( fnIfChild rootObjBip o ) do ( pairs[pairsIndex].bipObj = o )
+								--if ( IfChild rootObjBip o ) do ( pairs[pairsIndex].bipObj = o )
 								pairs[pairsIndex].bipObj = o
 							)
 						)
@@ -1176,7 +1462,7 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 				)
 			)
 		)
-		fnSetList ()
+		SetList ()
 		
 		close openStream
 	)
@@ -1185,13 +1471,13 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		file = (getSaveFileName caption:"Save sftb file" types:"Sox Fbx to Biped (*.sftb)|*.sftb|All (*.*)|*.*|")
 
 		-- ÀúÀå Àü °èÃþ±¸Á¶ ±âÁØÀ¸·Î ¼ÒÆÃ ¼öÇà (·¢ÀÌ °É¸®´Â ÀÛ¾÷ÀÓ)
-		fnSortByHierarchy ()
-		fnSetList ()
+		SortByHierarchy ()
+		SetList ()
 
 		try (
 			if (file != undefined) and (ss = createFile file) != undefined do
 			(
-			format "%" (fnSetFileStream() as string) to:ss
+			format "%" (SetFileStream() as string) to:ss
 
 			flush ss
 			close ss
@@ -1200,35 +1486,38 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		) catch ( messagebox "File Access Error" )
 	)
 	
-	/*
-	on uiBtnListUp pressed do (
-		if ( uiLBoxFbxBip.selection <= 1 ) do return ()
-		pairs = fnSwapArray pairs uiLBoxFbxBip.selection (uiLBoxFbxBip.selection - 1)
-		uiLBoxFbxBip.selection -= 1
-		fnSetList ()
-	)
-	
-	on uiBtnListDown pressed do (
-		if ( uiLBoxFbxBip.selection == 0 ) do return ()
-		if ( uiLBoxFbxBip.selection == uiLBoxFbxBip.items.count ) do return ()
-		pairs = fnSwapArray pairs uiLBoxFbxBip.selection (uiLBoxFbxBip.selection + 1)
-		uiLBoxFbxBip.selection += 1
-		fnSetList ()
-	)
-	*/
-	
 	on uiBtnListAdd pressed do (
 		append pairs (pairDef ())
 		uiLBoxFbxBip.selection = pairs.count
-		fnSetList ()
+		SetList ()
 	)
 	
 	on uiBtnListDel pressed do (
 		if ( pairs.count == 0 ) do return ()
 		if ( uiLBoxFbxBip.selection == 0 ) do return ()
 		deleteItem pairs uiLBoxFbxBip.selection
-		fnSetList ()
+		SetList ()
 	)
+
+    on uiBtnListHide pressed do (
+        if ( pairs.count == 0 ) do return ()
+		local selIndex = uiLBoxFbxBip.selection
+
+		objs = #()
+		if ( pairs[selIndex].fbxObj != undefined ) do append objs pairs[selIndex].fbxObj
+		if ( pairs[selIndex].bipObj != undefined ) do append objs pairs[selIndex].bipObj
+		hide objs
+    )
+
+    on uiBtnListUnHide pressed do (
+        if ( pairs.count == 0 ) do return ()
+        local selIndex = uiLBoxFbxBip.selection
+		
+		objs = #()
+		if ( pairs[selIndex].fbxObj != undefined ) do append objs pairs[selIndex].fbxObj
+		if ( pairs[selIndex].bipObj != undefined ) do append objs pairs[selIndex].bipObj
+		unhide objs
+    )
 	
 	-- ÇöÀç ¼±ÅÃµÈ ¿ÀºêÁ§Æ®¸¦ FBX ¸®Æ®½º¿¡ Ãß°¡
 	on uiBtnSetFbx pressed do (
@@ -1240,14 +1529,14 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		
 		/*
 		-- FBX´Â °èÃþ±¸Á¶ÀÇ ÀÚÀ¯µµ¸¦ À§ÇØ¼­ °°Àº °èÃþ±¸Á¶¿¡ ÀÖ´ÂÁö °Ë»ç¸¦ »ý·«ÇÔ
-		if ( fnIfChild rootObjFbx selection[1] ) == false do (
+		if ( IfChild rootObjFbx selection[1] ) == false do (
 			messagebox "It must exist in same hierarchy"
 			return ()
 		)
 		*/
 		
 		
-		tPos = fnFindInPairsFbx (selection[1])
+		tPos = FindInPairsFbx (selection[1])
 		if ( tPos > 0 ) do (
 			-- ÇöÀç ¼±ÅÃµÈ ¿ÀºêÁ§Æ® ÀÌ¸§ÀÌ ±âÁ¸¿¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
 			-- ±âÁ¸¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ® ¿¬°áÀ» ÀÏ´Ü ÇØÁ¦
@@ -1259,18 +1548,18 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		if uiCBoxAutoHide.state then (
 			hide selection[1]
 			clearSelection()
-			fnSetList ()
+			SetList ()
 		)
 		else (
-			fnSetList ()
-			fnCallbackSyncSel ()
+			SetList ()
+			CallbackSyncSel ()
 		)
 	)
 	on uiBtnClearFbx pressed do (
 		if ( uiLBoxFbxBip.selection == 0 ) do return ()
 		if ( pairs.count == 0 ) do return ()
 		pairs[uiLBoxFbxBip.selection].fbxObj = undefined
-		fnSetList ()
+		SetList ()
 	)
 	
 	-- ÇöÀç ¼±ÅÃµÈ ¿ÀºêÁ§Æ®¸¦ Bip ¸®Æ®½º¿¡ Ãß°¡
@@ -1280,12 +1569,12 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 			messagebox ( "Please select Biped Object" )
 			return ()
 		)
-		if ( fnIfChild rootObjBip selection[1] ) == false do (
+		if ( IfChild rootObjBip selection[1] ) == false do (
 			messagebox "It must exist in same hierarchy"
 			return ()
 		)
 		
-		tPos = fnFindInPairsBip (selection[1])
+		tPos = FindInPairsBip (selection[1])
 		if ( tPos > 0 ) do (
 			-- ÇöÀç ¼±ÅÃµÈ ¿ÀºêÁ§Æ® ÀÌ¸§ÀÌ ±âÁ¸¿¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
 			-- ±âÁ¸¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ® ¿¬°áÀ» ÀÏ´Ü ÇØÁ¦
@@ -1297,11 +1586,11 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		if uiCBoxAutoHide.state then ( 
 			hide selection[1]
 			clearSelection()
-			fnSetList ()
+			SetList ()
 		)
 		else (
-			fnSetList ()
-			fnCallbackSyncSel ()
+			SetList ()
+			CallbackSyncSel ()
 		)
 	)
 	
@@ -1309,234 +1598,33 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.31" width:280
 		if ( uiLBoxFbxBip.selection == 0 ) do return ()
 		if ( pairs.count == 0 ) do return ()
 		pairs[uiLBoxFbxBip.selection].bipObj = undefined
-		fnSetList ()
+		SetList ()
 	)
 	
 	on SoxFbxToBiped open do (
-			callbacks.addScript #selectionSetChanged "SoxFbxToBiped.fnCallbackSyncSel ()" id:#SFTBSelect
-			callbacks.addScript #filePostOpen "SoxFbxToBiped.uiBtnReset.pressed();SoxFbxToBiped.uiBtnScanRoot.pressed()" id:#SFTBOpen
-			callbacks.addScript #systemPostNew "SoxFbxToBiped.uiBtnReset.pressed();SoxFbxToBiped.uiBtnScanRoot.pressed()" id:#SFTBNew
-			callbacks.addScript #systemPostReset "SoxFbxToBiped.uiBtnReset.pressed();SoxFbxToBiped.uiBtnScanRoot.pressed()" id:#SFTBReset
-		
-			rootObjFbx = undefined
-			rootObjBip = undefined
-		
+        callbacks.addScript #selectionSetChanged "SoxFbxToBiped.CallbackSyncSel ()" id:#SFTBSelect
+        -- ¿ÀÇÂ Á÷ÈÄ Scan Root ¼öÇàÇÏ´Â ÀÛ¾÷Àº ¸®½ºÆ®¸¦ ºñ¿ì°ÔµÇ°í ¿ÀÈ÷·Á ºÒÆíÇØ¼­ ºÀÀÎ.
+		callbacks.addScript #filePostOpen "SoxFbxToBiped.uiBtnReset.pressed();SoxFbxToBiped.uiBtnScanRoot.pressed()" id:#SFTBOpen
+        callbacks.addScript #systemPostNew "SoxFbxToBiped.uiBtnReset.pressed();SoxFbxToBiped.uiBtnScanRoot.pressed()" id:#SFTBNew
+        callbacks.addScript #systemPostReset "SoxFbxToBiped.uiBtnReset.pressed();SoxFbxToBiped.uiBtnScanRoot.pressed()" id:#SFTBReset
+    
+        rootObjFbx = undefined
+        rootObjBip = undefined
+    
 -- 			uiSpnThickHor.value	= 0.5
 -- 			uiSpnThickVer.value	= 0.4
 
-			uiBtnScanRoot.pressed()
-			fnSetList ()
-			fnSetFixedDistHelperButton()
-		)
+        uiBtnScanRoot.pressed()
+        SetList ()
+
+        uiETxtAppend.text = "_proxy"
+    )
 	
 	on SoxFbxToBiped close do (
-			callbacks.removeScripts id:#SFTBSelect
-			callbacks.removeScripts id:#SFTBOpen
-			callbacks.removeScripts id:#SFTBNew
-			callbacks.removeScripts id:#SFTBReset
-	)
-
-	/* -- Fixed Distance Helper ¿¡ ÀÇÇØ ÇÊ¿ä ¾ø¾îÁø ±â´É ÁÖ¼® Ã³¸®
-	on uiBtnDeletePosKeys pressed do
-	(
-		if (selection.count < 1) do return()
-
-		for obj in selection do 
-		(
-			if (getClassName obj.position.controller == "Position XYZ") do
-			(
-				for p = 1 to 3 do -- 1,2,3 Àº x, y, z Æ÷Áö¼Ç
-				(
-					track = obj.position.controller[p].controller -- Æ÷Áö¼Ç ÄÁÆ®·Ñ·¯ ¼±ÅÃ
-		
-					-- select keys by skip each 5th
-					for i = 1 to track.keys.count do
-					(
-						-- ÇöÀç Å¸ÀÓÀÇ Å°¸¸ Á¦¿ÜÇÏ°í ³ª¸ÓÁö Å°¸¦ ´Ù ¼±ÅÃÇÑ´Ù.
-						if (track.keys[i].time <= sliderTime) then
-						(
-							deselectKey track i
-						)
-						else
-						(
-							selectKey track i
-						)
-					)
-					
-					-- delete selected keys
-					deleteKeys track #selection
-				)
-			)
-		)
-	)
-	*/
-	
-	on uiBtnFDHelper pressed do (
-		if (selection.count < 1) do return()
-		
-		undo on (
-			-- FBXtoBiped_FixedDistHelperType == "LookAt" ¸¦ ¼±ÅÃÇÏ°í ¹öÆ°À» ´©¸£¸é ºÎ¸ð¿Í Å¸°Ù º»À» ÀÚµ¿À¸·Î ¼±ÅÃÇÑ´Ù.
-			if (fnGetHelperType selection[1] == "LookAt" or fnGetHelperType selection[1] == "Orientation") do
-			(
-				local selArray = #()
-				local tObj = fnGetParentObj selection[1]
-				if (tObj != undefined) do (append selArray tObj)
-				tObj = fnGetTargetObj selection[1]
-				if (tObj != undefined) do (append selArray tObj)
-				select selArray
-			)
-			
-			if (selection.count < 2) do return()
-			
-			-- ¿©±â±îÁö ¿À¸é ÃÖÃÊ º» µÎ °³¸¦ ¼±ÅÃÇß´ø, LookAt ÇïÆÛ¸¦ ¼±ÅÃÇß´ø »ó°ü ¾øÀÌ ¼±ÅÃ µÎ °³´Â º» µÎ °³ÀÌ´Ù.
-			local selA = selection[1]
-			local selB = selection[2]
-			
-			-- µÎ º» ¼±ÅÃ ±âÁØÀ¸·Î ÀûÀýÇÑ ÇïÆÛ°¡ ÀÖ´ÂÁö ¾ò¾î¿Â´Ù. ÀûÀýÇÑ°Ô ¾øÀ¸¸é undefined
-			local newPointA = fnGetLookAtHelper selA selB
-				
-			-- newPointA °¡ ºñ¾îÀÖÀ¸¸é Ã¤¿î´Ù.
-			if (newPointA == undefined) do
-			(
-				local newPointA = Point()
-				newPointA.wireColor = yellow
-				newPointA.transform = selA.transform
-				newPointA.parent = selA
-				newPointA.name = selA.name + "--" + selB.name + " LookAt"
-				newPointA.cross = on
-				newPointA.Box = off
-				newPointA.axistripod = off
-				newPointA.centermarker = off
-				newPointA.size = uiSpinFDHelperSize.value
-				setUserProp newPointA "FBXtoBiped_FixedDistHelperType" "LookAt"
-				setUserProp newPointA "FBXtoBiped_FixedDistHelperParent" selA.inode.handle -- FixedDistHelper ´Â ¸®±ë °úÁ¤¿¡¼­ ºÎ¸ð°¡ ¼ö½Ã·Î ¹Ù²î¹Ç·Î ¿ø·¡ ¾î¶² º»À» ºÎ¸ð·Î Çß´ÂÁö °íÀ¯¹øÈ£¸¦ ±â·ÏÇØµÐ´Ù.
-				setUserProp newPointA "FBXtoBiped_FixedDistHelperTarget" selB.inode.handle -- À§¿Í ºñ½ÁÇÑ ÀÌÀ¯·Î ÀÏ´Ü ±â·ÏÈ÷µÐ´Ù. »ç¿ëÇÒÁö´Â ¹ÌÁö¼ö.
-			)
-			
-			newPointA.rotation.controller = LookAt_Constraint ()
-			
-			-- ÀÌ¹Ì LookAt Å¸°ÙÀÌ ÀÖÀ¸¸é »èÁ¦
-			if (newPointA.rotation.controller.getNumTargets () >= 1) do (
-				for i = 1 to newPointA.rotation.controller.getNumTargets () do (
-					newPointA.rotation.controller.deleteTarget 1 -- °¡Àå À§ÀÇ°Í¸¸ ¿©·¯ ¹ø »èÁ¦
-				)
-			)
-			
-			newPointA.rotation.controller.appendTarget selB 50
-			newPointA.rotation.controller.pickUpNode =  selA
-			newPointA.rotation.controller.upnode_world = false
-			newPointA.rotation.controller.lookat_vector_length = 0
-			
-			case of
-			(
-				(uiRBtnFDHelperForward.state == 1): (
-					-- X
-					newPointA.rotation.controller.target_axis = 0
-					newPointA.rotation.controller.StoUP_axis = 2
-					newPointA.rotation.controller.upnode_axis = 2
-				)
-				(uiRBtnFDHelperForward.state == 2): (
-					-- Y
-					newPointA.rotation.controller.target_axis = 1
-					newPointA.rotation.controller.StoUP_axis = 2
-					newPointA.rotation.controller.upnode_axis = 2
-				)
-				(uiRBtnFDHelperForward.state == 3): (
-					-- Z
-					newPointA.rotation.controller.target_axis = 2
-					newPointA.rotation.controller.StoUP_axis = 1
-					newPointA.rotation.controller.upnode_axis = 1
-				)
-			)
-			newPointA.rotation.controller.target_axisFlip = uiCBoxFDHelperForwardFlip.state
-			
-			-- µÎ º» ¼±ÅÃ ±âÁØÀ¸·Î ÀûÀýÇÑ ÇïÆÛ°¡ ÀÖ´ÂÁö ¾ò¾î¿Â´Ù. ÀûÀýÇÑ°Ô ¾øÀ¸¸é undefined
-			local newPointB = fnFindOrientationHelperByTarget selB
-				
-			if (newPointB == undefined) do (
-				newPointB = Point()
-				newPointB.wireColor = yellow
-				newPointB.transform = newPointA.transform
-				newPointB.parent = selA
-				newPointB.name = selA.name + " Orientation"
-				newPointB.cross = off
-				newPointB.Box = on
-				newPointB.axistripod = off
-				newPointB.centermarker = off
-				newPointB.size = uiSpinFDHelperSize.value * 0.85
-
-				setUserProp newPointB "FBXtoBiped_FixedDistHelperType" "Orientation"
-				setUserProp newPointB "FBXtoBiped_FixedDistHelperParent" selA.inode.handle -- FixedDistHelper ´Â ¸®±ë °úÁ¤¿¡¼­ ºÎ¸ð°¡ ¼ö½Ã·Î ¹Ù²î¹Ç·Î ¿ø·¡ ¾î¶² º»À» ºÎ¸ð·Î Çß´ÂÁö °íÀ¯¹øÈ£¸¦ ±â·ÏÇØµÐ´Ù.
-				setUserProp newPointB "FBXtoBiped_FixedDistHelperTarget" selB.inode.handle -- À§¿Í ºñ½ÁÇÑ ÀÌÀ¯·Î ÀÏ´Ü ±â·ÏÈ÷µÐ´Ù. »ç¿ëÇÒÁö´Â ¹ÌÁö¼ö.
-				setUserProp newPointB "FBXtoBiped_FixedDistPointerLookAt" newPointA.inode.handle -- ÂüÁ¶ÇÒ LookAt ÇïÆÛ¸¦ ±â·Ï
-				setUserProp newPointA "FBXtoBiped_FixedDistPointerOrientation" newPointB.inode.handle -- LookAt ÇïÆÛ¿¡ ÂüÁ¶ÇÒ Orientation ÇïÆÛ¸¦ ±â·Ï
-			)
-
-			newPointB.rotation.controller = Orientation_Constraint ()
-			
-			-- ÀÌ¹Ì Orientation Å¸°ÙÀÌ ÀÖÀ¸¸é »èÁ¦
-			if (newPointB.rotation.controller.getNumTargets () >= 1) do (
-				for i = 1 to newPointB.rotation.controller.getNumTargets () do (
-					newPointB.rotation.controller.deleteTarget 1 -- °¡Àå À§ÀÇ°Í¸¸ ¿©·¯ ¹ø »èÁ¦
-				)
-			)
-			
-			newPointB.rotation.controller.appendTarget newPointA 50
-
-			-- newPointBÀÇ Parent º»À» Å¸°ÙÀ¸·Î ÇÏ´Â Orientation ÇïÆÛ¸¦ Ã£´Â´Ù.
-			local parentOrientation = fnFindOrientationHelperByTarget (fnGetParentObj newPointB)
-			if (parentOrientation != undefined) do (
-				newPointB.parent = parentOrientation
-				local parentLookAt = fnGetLookAtHelperByPointer parentOrientation
-				-- distance¸¦ ÃøÁ¤ÇØ¼­ expression ³»¿ë¿¡ ¹Ù·Î ³Ö´Â ¹æ½ÄÀº ½ºÄÉÀÏÀÌ Àû¿ëµÈ °æ¿ì °ñÄ¡¾ÆÇÁ±â¶§¹®¿¡
-				-- ÀÏ¹Ý ÄÁÆ®·Ñ·¯·Î °­Á¦·Î ÀüÈ¯ÇÑ ÈÄ ´Ù½Ã Expression À¸·Î ÀüÈ¯ÇØ¼­ µðÆúÆ® °ªÀ» »ç¿ëÇÑ´Ù.
-				newPointB.pos.controller = Position_XYZ ()
-				newPointB.position = selA.position
-				newPointB.pos.controller = Position_Expression ()
-			)
-
-			-- ºÎ¸ð -> ÀÚ½ÄÀÇ ¼ø¼­·Î ÇïÆÛ¸¦ »ý¼ºÇÏ¸é ¹®Á¦°¡ ¾øÁö¸¸, ¹Ý´ë·Î »ý¼ºÇÏ¸é Orientation ÇïÆÛÀÇ ºÎ¸ð°¡ Á¦´ë·Î ¿¬°áµÇÁö ¾ÊÀ¸´Ï ÀÚ½Ä¿¡ ¿¬°áµÇÁö ¾ÊÀº°Ô ÀÖ´ÂÁö Ã£¾Æº»´Ù.
-			-- selB¸¦ parent ·Î ÇÏ´Â Orientation ÇïÆÛ¸¦ Ã£´Â ¹æ½Ä
-			for obj in helpers do (
-				if (fnGetHelperType obj == "Orientation") do (
-					if ((fnGetParentObj obj) == selB) do (
-						obj.parent = newPointB
-						newPointB.pos.controller = Position_Expression ()
-					)
-				)
-			)
-
-			select newPointB
-		) -- end fo UnDo
-	)
-
-	on uiSpinFDHelperSize changed value do (
-		local objs = #()
-		-- ÇÏ³ª¸¸ ¼±ÅÃÇß´Âµ¥ Fixed Distance °ü·Ã ÇïÆÛÀÏ °æ¿ì ½ÖÀ¸·Î ½ºÄÉÀÏÀ» Á¶Àý
-		if (selection.count == 1) then (
-			append objs selection[1]
-			if (fnGetHelperType selection[1] == "LookAt") do (
-				append objs (fnGetOrientationHelperByPointer selection[1])
-			)
-
-			if (fnGetHelperType selection[1] == "Orientation") do (
-				append objs (fnGetLookAtHelperByPointer selection[1])
-			)
-		)
-		else (
-			objs = selection as array
-		)
-
-		for obj in objs do (
-			if (classof obj == Point) do (
-				if ((fnGetHelperType obj) == "LookAt") do (
-					obj.size = value
-				)
-				if ((fnGetHelperType obj) == "Orientation") do (
-					obj.size = value * 0.85
-				) 
-			)
-		)
+        callbacks.removeScripts id:#SFTBSelect
+        callbacks.removeScripts id:#SFTBOpen
+        callbacks.removeScripts id:#SFTBNew
+        callbacks.removeScripts id:#SFTBReset
 	)
 	
 	on uiBtnAbout pressed do
