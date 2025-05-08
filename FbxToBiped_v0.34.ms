@@ -93,9 +93,9 @@ rollout SoxFbxToBiped "Sox Fbx to Biped v0.34" width:280
     group "自动附加名称" (
 		edittext uiETxtAppend "附加名称" width:180 offset:[0,0] across:2
         spinner uiSpnPointSize range:[0.1,9999,10]
-		button uiBtnDoAppend "附加!" offset:[0,0] tooltip:"Renames the second object based on the name of the tempFirst selected object." across:3
-        button uiBtnDoAppendAlign "Apnnd Align!" offset:[0,0] tooltip:"It automatically sorts them, links them as children, and renames them. Two objects must be selected for it to work."
-        button uiBtnDoAppendAlignedPoint "Apnend Point!" offset:[0,0] tooltip:"Creates point helpers that are auto-aligned and childed to the selected objects."
+		button uiBtnDoAppend "附加!" offset:[0,0] tooltip:"根据 tempFirst 选定对象的名称重命名第二个对象。" across:3
+        button uiBtnDoAppendAlign "Apnnd Align!" offset:[0,0] tooltip:"它会自动对它们进行排序，将它们链接为子对象，并重命名它们，必须选择两个对象才能运行"
+        button uiBtnDoAppendAlignedPoint "Apnend Point!" offset:[0,0] tooltip:"创建自动对齐且作为选定对象的点助手。"
 	)
 	
 	group "添加控制器" (
