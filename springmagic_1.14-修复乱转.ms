@@ -17,31 +17,31 @@ sprboneCA = attributes sprbTM
 )
 local framestart, frameEnd
 local simbones = #(), bone_TM = #(), preTimebone_TM = #(), prePos = #(), bcnt = #()
-rollout springMagic_rol "Spring Magic V1.14 Fixed" width:230 height:264
+rollout springMagic_rol "Spring Magic V1.14 Fixed" width:220 height:250
 (
-	spinner 'delaysp' "Spring" pos:[13,7] width:45 height:16 range:[0.01,1,0.3] type:#float scale:0.01 align:#left
-	spinner 'scaleMotion' "Scale Motion" pos:[105,7] width:44 height:16 range:[0,999,1] type:#float scale:0.01 align:#left
+	spinner 'delaysp' "硬度" pos:[13,7] width:60 height:16 range:[0.01,1,0.3] type:#float scale:0.1 align:#left
+	spinner 'scaleMotion' "幅 度" pos:[130,7] width:60 height:16 range:[0,999,1] type:#float scale:0.01 align:#left
  
-	spinner 'subs' "Subs" pos:[13,32] width:49 height:16 range:[1,30,1] type:#integer align:#left
-	spinner 'upspring' "XSpring" pos:[129,32] width:50 height:16 range:[0.1,1,0.3] type:#float scale:0.01 align:#left
+	spinner 'subs' "子步" pos:[13,32] width:60 height:16 range:[1,30,1] type:#integer align:#left
+	spinner 'upspring' "X弹簧" pos:[130,32] width:60 height:16 range:[0.1,1,0.3] type:#float scale:0.01 align:#left
  
-	spinner 'bnum' "Bones num" pos:[13,57] width:40 height:16 range:[0,1000,50] type:#integer align:#left
-	checkbox 'loops' "Loops" pos:[172,57] width:50 height:20 type:#integer range:[0,100,0] align:#left
-	groupBox 'grp1' "Bone Pose" pos:[4,82] width:222 height:44 align:#left
-	button 'pasteRp' "Paste" pos:[13,100] width:50 height:20 toolTip:"Select first bone" align:#left
-	button 'setRp' "Set" pos:[68,100] width:50 height:20 toolTip:"Select first bone" align:#left
+	spinner 'bnum' "骨骼数" pos:[13,57] width:60 height:16 range:[0,1000,50] type:#integer align:#left
+	checkbox 'loops' "循环" pos:[130,57] width:50 height:20 type:#integer range:[0,100,0] align:#left
+	groupBox 'grp1' "骨骼姿势" pos:[4,82] width:222 height:49 align:#left
+	button 'pasteRp' "粘贴" pos:[13,100] width:50 height:20 toolTip:"Select first bone" align:#left
+	button 'setRp' "设置" pos:[68,100] width:50 height:20 toolTip:"Select first bone" align:#left
  
-	button 'Stretch' "straight" pos:[123,100] width:50 height:20 align:#left
-	groupBox 'grp2' "KeyRange" pos:[4,131] width:222 height:44 align:#left
-	radiobuttons 'a1' "" pos:[8,149] width:134 height:16 labels:#("Active", "Custom") columns:2 align:#left
-	spinner 'aframeStart' "" pos:[123,149] width:40 height:16 range:[-10000,100000,1] type:#integer align:#left
+	button 'Stretch' "打直" pos:[123,100] width:50 height:20 align:#left
+	groupBox 'grp2' "帧范围" pos:[4,134] width:222 height:68 align:#left
+	radiobuttons 'a1' "" pos:[8,152] width:134 height:16 labels:#("当前", "固定") columns:2 align:#left
+	spinner 'aframeStart' "" pos:[8,176] width:60 height:16 range:[-10000,100000,1] type:#integer align:#left
  
-	spinner 'aframeEnd' "To" pos:[168,149] width:41 height:16 range:[0,100000,10] type:#integer align:#left
-	groupBox 'grp3' "应用栏：仍会出现欧拉，骨骼不会消失" pos:[4,180] width:222 height:44 align:#left
-	button 'applybone' "Bake" pos:[13,198] width:60 height:20 toolTip:"Select first bone" align:#left
+	spinner 'aframeEnd' " 至" pos:[60,176] width:60 height:16 range:[0,100000,10] type:#integer align:#left
+	--groupBox 'grp3' "应用栏：仍会出现欧拉，骨骼不会消失" pos:[4,180] width:222 height:44 align:#left
+	button 'applybone' "计算" pos:[10,212] width:60 height:20 toolTip:"Select first bone" align:#left
  
-	progressBar 'doit_prog' "" pos:[103,203] width:120 height:15 color:(color 255 0 0) align:#left
-	label 'lab_aut' "原作:Si-Chung Yuan (修复乱转)     修改：江湖夜雨十年灯" pos:[15,229] width:206 height:33 align:#left
+	progressBar 'doit_prog' "" pos:[80,214.5] width:120 height:15 color:(color 255 0 0) align:#left
+	--label 'lab_aut' "原作:Si-Chung Yuan (修复乱转)     修改：江湖夜雨十年灯" pos:[15,229] width:206 height:33 align:#left
 	
 	fn setStartEndFrame = (
 		if a1.state == 1 then (
