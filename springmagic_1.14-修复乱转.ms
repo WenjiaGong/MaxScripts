@@ -19,14 +19,14 @@ local framestart, frameEnd
 local simbones = #(), bone_TM = #(), preTimebone_TM = #(), prePos = #(), bcnt = #()
 rollout springMagic_rol "Spring Magic V1.14 Fixed" width:220 height:250
 (
-	spinner 'delaysp' "硬度" pos:[13,7] width:60 height:16 range:[0.01,1,0.3] type:#float scale:0.1 align:#left
+	spinner 'delaysp' "硬 度" pos:[13,7] width:60 height:16 range:[0.01,1,0.3] type:#float scale:0.1 align:#left
 	spinner 'scaleMotion' "幅 度" pos:[130,7] width:60 height:16 range:[0,999,1] type:#float scale:0.01 align:#left
  
-	spinner 'subs' "子步" pos:[13,32] width:60 height:16 range:[1,30,1] type:#integer align:#left
-	spinner 'upspring' "X弹簧" pos:[130,32] width:60 height:16 range:[0.1,1,0.3] type:#float scale:0.01 align:#left
+	spinner 'subs' "子 步" pos:[13,32] width:60 height:16 range:[1,30,1] type:#integer align:#left
+	spinner 'upspring' "扭 动" pos:[130,32] width:60 height:16 range:[0.1,1,0.3] type:#float scale:0.01 align:#left
  
 	spinner 'bnum' "骨骼数" pos:[13,57] width:60 height:16 range:[0,1000,50] type:#integer align:#left
-	checkbox 'loops' "循环" pos:[130,57] width:50 height:20 type:#integer range:[0,100,0] align:#left
+	checkbox 'loops' "循 环" pos:[130,57] width:50 height:20 type:#integer range:[0,100,0] align:#left
 	groupBox 'grp1' "骨骼姿势" pos:[4,82] width:222 height:49 align:#left
 	button 'pasteRp' "粘贴" pos:[13,100] width:50 height:20 toolTip:"Select first bone" align:#left
 	button 'setRp' "设置" pos:[68,100] width:50 height:20 toolTip:"Select first bone" align:#left
