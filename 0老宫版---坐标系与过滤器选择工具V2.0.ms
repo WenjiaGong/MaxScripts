@@ -75,7 +75,7 @@ rollout rlt3 "外部脚本"
 
     on btn33 pressed do
     (
-        local scriptFilePath = "d:\\Program Files\\Autodesk\\3ds Max 2024\\scripts\\0《米哈游飘带工具》SpringMagic_Enhanced_Confuser.ms"
+        local scriptFilePath = "d:\\Program Files\\Autodesk\\3ds Max 2024\\scripts\\springmagic_0.9_0(飘带解算)_zh.ms"
         if doesFileExist scriptFilePath then
         (
             fileIn scriptFilePath
