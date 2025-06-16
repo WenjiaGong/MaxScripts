@@ -48,43 +48,36 @@ rollout rlt3 "外部脚本"
     button btn33 "飘带解算" pos:[15,90] width:140 height:30 align:#left
     
     on btn31 pressed do
-    (
-        local scriptFilePath = "d:\\Program Files\\Autodesk\\3ds Max 2024\\scripts\\0类型过滤器.ms"
-        if doesFileExist scriptFilePath then
-        (
-            fileIn scriptFilePath
+
+	   (
+            local scriptDir = getFilenamePath (getThisScriptFilename())
+			local targetFile = scriptDir + "0类型过滤器.ms"
+			if doesFileExist targetFile then
+			fileIn targetFile
+            else
+			messageBox ("文件未找到:\n" + targetFile) title:"错误"
         )
-        else
-        (
-            messageBox "文件未找到!" title:"错误"
-        )
-    )
+
 
     on btn32 pressed do
-    (
-        local scriptFilePath = "d:\\Program Files\\Autodesk\\3ds Max 2024\\scripts\\Bone Divider(骨骼等分汉化).ms"
-        if doesFileExist scriptFilePath then
         (
-            fileIn scriptFilePath
+            local scriptDir = getFilenamePath (getThisScriptFilename())
+			local targetFile = scriptDir + "Bone Divider(骨骼等分汉化).ms"
+			if doesFileExist targetFile then
+			fileIn targetFile
+            else
+			messageBox ("文件未找到:\n" + targetFile) title:"错误"
         )
-        else
-        (
-            messageBox "文件未找到!" title:"错误"
-        )
-    )
 
     on btn33 pressed do
-    (
-        local scriptFilePath = "d:\\Program Files\\Autodesk\\3ds Max 2024\\scripts\\springmagic_0.9_0(飘带解算)_zh.ms"
-        if doesFileExist scriptFilePath then
         (
-            fileIn scriptFilePath
+            local scriptDir = getFilenamePath (getThisScriptFilename())
+			local targetFile = scriptDir + "springmagic_1.14-修复乱转.ms"
+			if doesFileExist targetFile then
+			fileIn targetFile
+            else
+			messageBox ("文件未找到:\n" + targetFile) title:"错误"
         )
-        else
-        (
-            messageBox "文件未找到!" title:"错误"
-        )
-    )
 )
 
 -- 解决 AA_floater 的问题
