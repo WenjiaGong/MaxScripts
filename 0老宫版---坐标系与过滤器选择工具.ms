@@ -34,7 +34,7 @@ rollout rlt2 "Ñ¡Ôñ¹ýÂË"
         SetSelectFilter 1
     
     on btn22 pressed do
-        SetSelectFilter 8
+        SetSelectFilter 9
     
     on btn23 pressed do
         macros.run "Characters" "AssumeSkinPose"
