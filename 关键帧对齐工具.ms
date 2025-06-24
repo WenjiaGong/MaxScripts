@@ -22,20 +22,20 @@ rollout alignRoll "Key Frame Align" width:160 height:372
 	local endDef = animationrange.end
 	pickbutton objOne "选择" pos:[36,20] width:90 height:31
 	pickbutton Obj2 "选择" pos:[36,81] width:90 height:31
-	button doBtn "Do It!" pos:[32,125] width:100 height:20
-	spinner startSpn "开始帧" pos:[22,219] width:100 height:16 range:[-999999,999999,0] type:#integer
-	spinner endSpn "结束帧" pos:[22,245] width:100 height:16 range:[-999999,999999,30] type:#integer
-	spinner stepSpn "Step" pos:[22,270] width:100 height:16 range:[1,60,1] type:#integer
-	button bakeBtn "Increment Me!" pos:[20,311] width:100 height:30
-	checkbox chkPos "位移" pos:[8,168] width:44 height:20 checked:false
+	--button doBtn "Do It!" pos:[32,125] width:100 height:20
+	spinner startSpn "开始帧" pos:[22,196] width:100 height:16 range:[-999999,999999,0] type:#integer
+	spinner endSpn "结束帧" pos:[22,218] width:100 height:16 range:[-999999,999999,30] type:#integer
+	spinner stepSpn "子步" pos:[22,243] width:100 height:16 range:[1,60,1] type:#integer
+	button bakeBtn "执行" pos:[30,311] width:100 height:30
+	checkbox chkPos "位移" pos:[8,168-27] width:44 height:20 checked:true
 	GroupBox grp1 "需要对齐物体" pos:[2,4] width:156 height:54
 	GroupBox grp2 "参照对齐物体" pos:[2,62] width:156 height:56
-	checkbox chkRot "旋转" pos:[56,168] width:44 height:20 checked:false
-	checkbox chkSca "缩放" pos:[104,168] width:44 height:20 checked:false
-	GroupBox grp3 "坐标变换" pos:[2,152] width:156 height:41
-	GroupBox grp4 "时间范围" pos:[2,201] width:156 height:147
-	progressBar pb1 "ProgressBar" pos:[7,356] width:127 height:8 color:(color 63 181 47)
-	checkbox timeCk "Timeline Length" pos:[18,291] width:107 height:16
+	checkbox chkRot "旋转" pos:[56,168-27] width:44 height:20 checked:true
+	checkbox chkSca "缩放" pos:[104,168-27] width:44 height:20 checked:false
+	GroupBox grp3 "坐标变换" pos:[2,125] width:156 height:41
+	GroupBox grp4 "时间范围" pos:[2,174] width:156 height:120
+	progressBar pb1 "ProgressBar" pos:[6,356] width:146 height:8 color:(color 63 181 47)
+	checkbox timeCk "当前时间范围" pos:[18,264] width:107 height:16 checked:true
 	
 	--Define Functions--
 	
