@@ -1,7 +1,7 @@
 rollout test "Ò»¼ü³éÖ¡" width:140 height:60
 (
 	button 'btn1' "³éÖ¡" pos:[26,18] width:90 height:24 align:#left
-	on btn1 pressed  do
+    on btn1 pressed  do
 	(
 		try
 		(		
