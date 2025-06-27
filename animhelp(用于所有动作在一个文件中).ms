@@ -61,10 +61,10 @@ global AH_G_ANIM_LAST	= 0
 global selButStates 	= #{}
 
 -- UI defines 'add local animation'
-global UI_ANIM_SPINNER_START_NAME  			= "start:"
-global UI_ANIM_SPINNER_END_NAME  			= "end:"
-global UI_ANIM_BUTTON_SHOW_RANGE_NAME		= "show range"
-global UI_ANIM_BUTTON_STORE_RANGE_NAME		= "store range"
+global UI_ANIM_SPINNER_START_NAME  			= "开始:"
+global UI_ANIM_SPINNER_END_NAME  			= "结束:"
+global UI_ANIM_BUTTON_SHOW_RANGE_NAME		= "应用范围"
+global UI_ANIM_BUTTON_STORE_RANGE_NAME		= "更新范围"
 global UI_ANIM_BUTTON_RENDER_NAME			= "render"
 
 global UI_BUTTON_HEIGHT						= 18
@@ -79,16 +79,16 @@ global UI_MSG_ERROR_WHILE_RENDERING_ABORTING	= "Error!, rendering aborted"
 
 -- UI defines 'global controls'
 
-global UI_BUTTON_DELETE_SELECTED_ANIMATIONS_NAME	= "delete selected"
-global UI_BUTTON_ADD_ANIMATION_NAME					= "add animation"
-global UI_BUTTON_DELETE_ALL_NAME					= "delete ALL"
+global UI_BUTTON_DELETE_SELECTED_ANIMATIONS_NAME	= "删除选择"
+global UI_BUTTON_ADD_ANIMATION_NAME					= "添加片段"
+global UI_BUTTON_DELETE_ALL_NAME					= "删除全部"
 
 global UI_BUTTON_EXPORT_ANIM_DATA_NAME					=  "export anim data"
 global UI_BUTTON_SHOW_SELECTED_RANGE_NAME				= "show selected range"
 global UI_BUTTON_SHOW_MAX_RANGE_NAME					= "show Max range"
-global UI_BUTTON_SELECT_ALL_NAME						= "all"
-global UI_BUTTON_SELECT_NONE_NAME						= "none"
-global UI_BUTTON_SELECT_INVERT_NAME						= "invert"
+global UI_BUTTON_SELECT_ALL_NAME						= "全选"
+global UI_BUTTON_SELECT_NONE_NAME						= "取消"
+global UI_BUTTON_SELECT_INVERT_NAME						= "反选"
 global UI_BUTTON_ABOUT_NAME								= "?" 
 global UI_BUTTON_SET_RENDER_FILE_OUTPUT_NAME			= "Set render file output"
 global UI_DIALOG_SET_RENDER_OUTPUT_DIRECTORY_TEXT		= "Set the render output directory"
@@ -426,13 +426,13 @@ fn createAnimRollout  =
 				if AnimHelp != undefined then (
 					removeRollout AnimHelp 
 				)
-				newUI = "rollout AnimHelp \"Animations sheet\" category:3 (\n " 
+				newUI = "rollout AnimHelp \"展开菜单\" category:3 (\n " 
 				
 				append newUI "button delAnim UI_BUTTON_DELETE_SELECTED_ANIMATIONS_NAME pos:[10,10] width:80 height:UI_BUTTON_HEIGHT \n"
-				append newUI "button moveSelectionUpButton \"Move selected Up\" pos:[105,10] width:110 height:UI_BUTTON_HEIGHT \n"
-				append newUI "button moveSelectionDownButton \"Move selected down\" pos:[220,10] width:110 height:UI_BUTTON_HEIGHT \n"
+				append newUI "button moveSelectionUpButton \"上移\" pos:[105,10] width:110 height:UI_BUTTON_HEIGHT \n"
+				append newUI "button moveSelectionDownButton \"下移\" pos:[220,10] width:110 height:UI_BUTTON_HEIGHT \n"
 	
-				append newUI "label selectLabel \"Select:\" pos:[362,12] \n"
+				append newUI "label selectLabel \"选择:\" pos:[362,12] \n"
 				append newUI "button btnSelectAll UI_BUTTON_SELECT_ALL_NAME pos:[400,10] width:36 height:UI_BUTTON_HEIGHT \n"
 				append newUI "button btnSelectNone UI_BUTTON_SELECT_NONE_NAME pos:[440,10] width:36 height:UI_BUTTON_HEIGHT \n"
 				append newUI "button btnSelectInvert UI_BUTTON_SELECT_INVERT_NAME pos:[480,10] width:36 height:UI_BUTTON_HEIGHT \n"
@@ -471,14 +471,14 @@ fn createAnimRollout  =
 	)
 )	
 
-rollout animSelectRollout "Animation select" category:2
+rollout animSelectRollout "下拉菜单" category:2
 (
-	button singleAnimShowRange "show range" pos:[4,10] width:64 height:UI_BUTTON_HEIGHT
+	button singleAnimShowRange "应用范围" pos:[4,10] width:64 height:UI_BUTTON_HEIGHT
 	dropdownlist currentAnimation pos:[80,8] width:280
-	label labelChangeSelected  "Change selected:" pos:[4,36]
+	label labelChangeSelected  "更改选择:" pos:[4,36]
 	editText singleAnimName pos:[110, 34] width:120 height:16 
-	spinner singleAnimStartRange "start:" pos:[260, 34] width:65 height:16 range:[0,999999,0] type:#integer
-	spinner singleAnimEndRange "end:" pos:[360, 34] width:65 height:16 range:[0,999999,0] type:#integer
+	spinner singleAnimStartRange "开始:" pos:[260, 34] width:65 height:16 range:[0,999999,0] type:#integer
+	spinner singleAnimEndRange "结束:" pos:[360, 34] width:65 height:16 range:[0,999999,0] type:#integer
 	button singleAnimStoreAnimRange UI_ANIM_BUTTON_STORE_RANGE_NAME pos:[430,34] width:60 height:UI_BUTTON_HEIGHT
 
 	on animSelectRollout rolledUp state do (
@@ -852,7 +852,7 @@ return
 )
 */
 
-rollout AboutMeAnimHelp "AnimHelp"
+rollout AboutMeAnimHelp "关于"
 (
 	label Name VERSION_ANIMHELP
 	label creator "(c) 2011 - created by Arjen van Haren"
@@ -910,15 +910,15 @@ fn setupRolloutStates =
 	)
 )
 
-rollout TEMPLATE_ANIMHELP "Global controls" width:528 height:144 category:1
+rollout TEMPLATE_ANIMHELP "全局设置" width:528 height:144 category:1
 (
-	groupBox menuGroup "Menu" pos:[6,4] width:520 height:38
-	button btnAnimationSelect "Anim" pos:[10,18] width:76 height:UI_BUTTON_HEIGHT
-	button btnAnimSheet "Anim sheet" pos:[90,18] width:76 height:UI_BUTTON_HEIGHT
+	groupBox menuGroup "动画菜单" pos:[6,4] width:520 height:38
+	button btnAnimationSelect "下拉菜单" pos:[10,18] width:76 height:UI_BUTTON_HEIGHT
+	button btnAnimSheet "展开菜单" pos:[90,18] width:76 height:UI_BUTTON_HEIGHT
 -- 	button btnSort "Sort" pos:[170,18] width:76 height:UI_BUTTON_HEIGHT
-	button btnExport "Export selection" pos:[250,18] width:120 height:UI_BUTTON_HEIGHT
+	button btnExport "导出记录" pos:[250,18] width:120 height:UI_BUTTON_HEIGHT
 -- 	button btnSettings "Settings" pos:[330,18] width:76 height:UI_BUTTON_HEIGHT
-	button btnAbout "About" pos:[440,18] width:76 height:UI_BUTTON_HEIGHT
+	button btnAbout "关于" pos:[440,18] width:76 height:UI_BUTTON_HEIGHT
 
 	button addGlobalAnim UI_BUTTON_ADD_ANIMATION_NAME pos:[10,50] width:76 height:UI_BUTTON_HEIGHT
 	button delAll UI_BUTTON_DELETE_ALL_NAME pos:[100,50] width:76 height:UI_BUTTON_HEIGHT
@@ -981,7 +981,7 @@ rollout TEMPLATE_ANIMHELP "Global controls" width:528 height:144 category:1
 	
 	on delAll pressed do
 	(
-		retVal = yesnocancelbox "All animation data will be deleted!\nContinue?"
+		retVal = yesnocancelbox "所有动画数据将被删除！\n继续?"
 		if retVal == #YES then (
 			clearAllAppData rootnode
 			createAnimRollout()
