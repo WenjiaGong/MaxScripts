@@ -72,7 +72,7 @@ rollout rlt3 "外部脚本"
     on btn33 pressed do
         (
             local scriptDir = getFilenamePath (getThisScriptFilename())
-			local targetFile = scriptDir + "springmagic_1.14-修复乱转.ms"
+			local targetFile = scriptDir + "springmagic_v1.11_zh.ms"
 			if doesFileExist targetFile then
 			fileIn targetFile
             else
