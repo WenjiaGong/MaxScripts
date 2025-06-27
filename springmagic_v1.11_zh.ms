@@ -19,12 +19,12 @@ sprboneCA = attributes sprbTM
 )
 local framestart, frameEnd
 local simbones = #(), bone_TM = #(), preTimebone_TM = #(), prePos = #(), bcnt = #(), bltm=#()
-rollout springMagic_rol "Spring Magic V1.11" width:250
+rollout springMagic_rol "Spring Magic V1.11" width:250 height:260
 (
-	spinner delaysp "硬度" type:#float scale:0.01 range:[0.01,1,0.3] align:#left height:20 width:60
-	spinner scaleMotion "幅度" type:#float scale:0.01 range:[0,999,1] align:#right height:20 width:75 offset:[5,-25] 
+	spinner delaysp "硬度" type:#float scale:0.05 range:[0.01,1,0.3] align:#left height:20 width:60
+	spinner scaleMotion "幅度" type:#float scale:0.1 range:[0,999,1] align:#right height:20 width:75 offset:[5,-25] 
 	spinner subs "子步" type:#integer range:[1,30,1] align:#left height:20 width:60
-	spinner upspring "扭动" type:#float scale:0.01 range:[0.1,1,0.3] align:#right height:20 width:70 offset:[5,-25] 
+	spinner upspring "扭动" type:#float scale:0.1 range:[0.1,1,0.3] align:#right height:20 width:70 offset:[5,-25] 
 	spinner bnum "骨骼数" type:#integer range:[0,1000,50] align:#left height:20 width:60
 	checkBox loops "循环" type:#integer range:[0,100,0] align:#right height:20 width:50 offset:[5,-25]
 	
