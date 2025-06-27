@@ -33,7 +33,8 @@ rollout springMagic_rol "Spring Magic V1.11" width:250 height:260
 	(
 	button pasteRp "粘贴" toolTip:"Select first bone" align:#left height:20 width:50
 	button setRp "设置" toolTip:"Select first bone" align:#left height:20 width:50 offset:[55,-25] 
-	button stretch "打直" align:#left height:20 width:50 offset:[110,-25] 
+	button stretch "打直" align:#left height:20 width:50 offset:[110,-25]
+    button btn_EulerFilter "欧拉过滤" align:#left height:20 width:60 offset:[165,-25]		
 	)
 	group "帧范围"
 	(
@@ -381,6 +382,30 @@ rollout springMagic_rol "Spring Magic V1.11" width:250 height:260
 		aframestart.value = animationRange.start
 		aframeEnd.value = animationRange.end
 	)
+	on btn_EulerFilter pressed do with undo on
+   (
+		sel = for obj in selection where(classof obj !=Biped_Object)collect obj
+		if sel.count > 0 then
+		(		
+			for b in sel do
+			(
+				bAnimLayers = AnimLayerManager.getNodesLayers b
+				if bAnimLayers.count >0 then
+				(
+					activeAnimLayers = AnimLayerManager.getActiveLayersNodes b
+					i = activeAnimLayers[1]
+					if i > bAnimLayers.count then i = bAnimLayers.count
+					b.Rotation.Controller[i].Controller =  TCB_Rotation ()
+					b.Rotation.Controller[i].Controller =  Euler_XYZ ()
+				)
+				else
+				(
+					 b.Rotation.Controller =  TCB_Rotation ()
+					 b.Rotation.Controller =  Euler_XYZ ()
+				)
+			)				
+		)		
+   )
 )
 createDialog springMagic_rol
 
