@@ -9,9 +9,9 @@ global AA_pos = [2,2]
 -- 卷帘 1
 rollout rlt1 "坐标系转换"
 (
-    button btn11 "视图" pos:[15,10] width:140 height:30 align:#left tooltip:"切换到视图坐标系"
-    button btn12 "局部" pos:[15,50] width:140 height:30 align:#left tooltip:"切换到局部坐标系"
-    button btn13 "屏幕" pos:[15,90] width:140 height:30 align:#left tooltip:"切换到屏幕坐标系"
+    button btn11 "视图" pos:[15,10] width:140 height:30 align:#left --tooltip:"切换到视图坐标系"
+    button btn12 "局部" pos:[15,50] width:140 height:30 align:#left --tooltip:"切换到局部坐标系"
+    button btn13 "屏幕" pos:[15,90] width:140 height:30 align:#left --tooltip:"切换到屏幕坐标系"
     
     on btn11 pressed do
         toolMode.coordsys #view
@@ -26,9 +26,9 @@ rollout rlt1 "坐标系转换"
 -- 卷帘 2
 rollout rlt2 "选择过滤"
 (
-    button btn21 "全部" pos:[15,10] width:140 height:30 align:#left tooltip:"选择所有对象"
-    button btn22 "骨骼" pos:[15,50] width:140 height:30 align:#left tooltip:"仅选择骨骼"
-    button btn23 "采用蒙皮姿态" pos:[15,90] width:140 height:30 align:#left tooltip:"采用蒙皮姿态"
+    button btn21 "全部" pos:[15,10] width:140 height:30 align:#left --tooltip:"选择所有对象"
+    button btn22 "骨骼" pos:[15,50] width:140 height:30 align:#left --tooltip:"仅选择骨骼"
+    button btn23 "采用蒙皮姿态" pos:[15,90] width:140 height:30 align:#left --tooltip:"采用蒙皮姿态"
     
     on btn21 pressed do
         SetSelectFilter 1
