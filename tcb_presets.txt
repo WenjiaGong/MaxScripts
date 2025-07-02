@@ -1,0 +1,2 @@
+(tcb name:"Default" easeTo:0.0 easeFrom:0.0 tension:25.0 continuity:25.0 bias:25.0)
+(tcb name:"¶¨Ö¡" easeTo:0.0 easeFrom:0.0 tension:25.0 continuity:5.0 bias:25.0)
