@@ -62,28 +62,28 @@ fn saveTcb arrTcbs =
 	global offsetBsTM = [0,0] 		--Dragwindow
 	global dragStateBsTM = off   --Dragwindow
 
-rollout rll_tcb "bip TCB" width:180
+rollout rll_tcb "Bip_TCB快速设置" width:180
 (
 	local TCBs = #()
 	local h = 13
 	groupbox gpbOutline "" pos:[5,15] width:325 height:145
 
-	label lblTitle "TCB" pos:[18,6]
+	label lblTitle "TCB快速设置" pos:[18,6]
 	--button btnAbout "?" pos:[rll_tcb.width - 40,0] height:16 width:20
-	button btnClose "X" pos:[rll_tcb.width - 20,0] height:16 width:20 
-	spinner s_et "Ease To :  " range:[0,50,0] height:13 
-	spinner s_ef "Ease From :  " range:[0,50,0] height:18
-	spinner s_t "Tension :  " range:[0,50,25] height:13
-	spinner s_c "Continuity :  " range:[0,50,25] height:13
-	spinner s_b "Bias :  " range:[0,50,25] height:15
-	radiobuttons rdo_range labels:#("Current Time","Entire Time")
-	button btn_app "Apply" width:155	
+	--button btnClose "X" pos:[rll_tcb.width - 20,0] height:16 width:20 
+	spinner s_et "缓入:  " range:[0,50,0] height:13 
+	spinner s_ef "缓出:  " range:[0,50,0] height:18
+	spinner s_t "张力:  " range:[0,50,25] height:13
+	spinner s_c "连续性:  " range:[0,50,25] height:13
+	spinner s_b "偏移:  " range:[0,50,25] height:15
+	radiobuttons rdo_range labels:#("当前时间","整个时间")
+	button btn_app "应用" width:155	
 
-	listbox lb_set " Preset" height:4 offset:[0,10]
+	listbox lb_set "预设" height:4 offset:[0,10]
 	edittext etxt_name ""
-	button btn_add "Add" width:49 align:#left
-	button btn_edit "Edit" width:49 align:#center offset:[0,-26]
-	button btn_del "Delete" width:49 align:#right offset:[0,-26]
+	button btn_add "添加" width:49 align:#left
+	button btn_edit "修改" width:49 align:#center offset:[0,-26]
+	button btn_del "删除" width:49 align:#right offset:[0,-26]
 
 	button btn_a "+" width:17 height:17 pos:(lb_set.pos + [120,-18])
 	button btn_d "-" width:17 height:17 pos:(lb_set.pos + [137,-18])
@@ -206,5 +206,5 @@ rollout rll_tcb "bip TCB" width:180
 
 )
 
-createdialog rll_tcb style:#()
+createdialog rll_tcb
 
