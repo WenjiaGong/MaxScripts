@@ -406,7 +406,9 @@ rollout springMagic_rol "Spring Magic V1.11" width:250 height:280
 					 b.Rotation.Controller =  Euler_XYZ ()
 				)
 			)				
-		)		
+		)
+		-- 操作完成后弹窗提示
+        messageBox "欧拉过滤执行完成！"
    )
 )
 createDialog springMagic_rol
