@@ -43,9 +43,10 @@ rollout rlt2 "选择过滤"
 -- 卷帘 3
 rollout rlt3 "外部脚本"
 (
-    button btn31 "类型过滤" pos:[15,10] width:140 height:30 align:#left
-    button btn32 "骨骼等分" pos:[15,50] width:140 height:30 align:#left
-    button btn33 "飘带解算" pos:[15,90] width:140 height:30 align:#left
+    button btn31 "类型过滤" pos:[15,10] width:60 height:30 align:#left
+	button btn32 "骨骼等分" pos:[95,10] width:60 height:30 align:#left
+    button btn33 "飘带解算" pos:[15,50] width:60 height:30 align:#left
+	button btn34 "动画粘贴" pos:[95,50] width:60 height:30 align:#left
     
     on btn31 pressed do
 
@@ -73,6 +74,16 @@ rollout rlt3 "外部脚本"
         (
             local scriptDir = getFilenamePath (getThisScriptFilename())
 			local targetFile = scriptDir + "springmagic_v1.11_zh.ms"
+			if doesFileExist targetFile then
+			fileIn targetFile
+            else
+			messageBox ("文件未找到:\n" + targetFile) title:"错误"
+        )
+		
+    on btn34 pressed do
+        (
+            local scriptDir = getFilenamePath (getThisScriptFilename())
+			local targetFile = scriptDir + "CopyAnimtedObject(骨骼复制插件).ms"
 			if doesFileExist targetFile then
 			fileIn targetFile
             else
